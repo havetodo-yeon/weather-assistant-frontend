@@ -7,3 +7,9 @@
 2. 일련의 작업은 우선 **dev** branch 로 merge 한다.
 3. merge는 본인을 제외한 두 명 이상의 컨펌 이후 이루어진다.
 4. 프로토타입, 최종 작업물이 **dev** branch에서 만들어졌을 경우에만 main으로 merge 할 수 있다.
+
+## LLM 기반 날씨 앱
+### Front
+https://github.com/havetodo-yeon/Mobile-Magicians
+### Back
+https://github.com/havetodo-yeon/weather-assistant-llm
