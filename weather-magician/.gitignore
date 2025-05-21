@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/weather-assistant-llm
 
 # testing
 /coverage
