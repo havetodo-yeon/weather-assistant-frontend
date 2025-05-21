@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /backend
+/weather-assistant-llm
 
 # testing
 /coverage
