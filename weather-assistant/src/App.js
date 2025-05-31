@@ -11,6 +11,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('위치 정보를 불러오는 중...');
+  const [coords, setCoords] = useState(null); // 위도/경도 저장용
+
 
   useEffect(() => {
     const now = new Date();
@@ -18,18 +20,31 @@ function App() {
     const m = now.getMinutes().toString().padStart(2, '0');
     setTime(`${h}:${m}`);
 
-    // 사용자 위치 가져오기 (API 없이 더미 주소 사용)
+  // 위치 정보 가져오기 및 주소 변환
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        console.log('위도:', pos.coords.latitude, '경도:', pos.coords.longitude);
-        setLocation('서울특별시 성동구');
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setCoords({ latitude, longitude }); // 좌표 저장
+
+        try {
+          const res = await fetch('http://localhost:4000/reverse-geocode', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ latitude, longitude })
+          });
+          const data = await res.json();
+          setLocation(data.region || '주소를 찾을 수 없음');
+        } catch (err) {
+          console.error('📍 주소 요청 실패:', err);
+          setLocation('주소 요청 실패');
+        }
       },
       () => {
         setLocation('위치 정보 접근 거부됨');
       }
     );
   }, []);
-
+  
   const handleSend = async () => {
     if (!input.trim()) return;
 
@@ -38,22 +53,44 @@ function App() {
     setInput('');
     setView('chat');
 
+  try {
     // 로딩 상태 메시지 추가
     setMessages(prev => [...prev, { type: 'bot', text: '생각하는 중...' }]);
 
-    try {
-      const reply = await geminiApi.sendMessage(input);
-      
-      // 로딩 메시지 제거하고 실제 응답 추가
+    const res = await fetch('http://localhost:4000/gemini', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userInput: input,
+        location,
+        coords
+      })
+    });
+
+    const data = await res.json();
+
+    // 로딩 메시지 제거하고 실제 응답 추가
+    setMessages(prev => {
+      const newMessages = [...prev];
+      newMessages.pop(); // 로딩 메시지 제거
+      return [...newMessages, {
+        type: 'bot',
+        text: data.reply || '응답을 이해하지 못했어요.'
+      }];
+    });
+
+    if (data.error) {
+      console.error('API 오류:', data.error);
       setMessages(prev => {
         const newMessages = [...prev];
         newMessages.pop(); // 로딩 메시지 제거
         return [...newMessages, {
           type: 'bot',
-          text: reply
+          text: `❌ 오류: ${data.error}`
         }];
       });
-    } catch (error) {
+    }
+  }  catch (error) {
       // 로딩 메시지 제거하고 에러 메시지 추가
       setMessages(prev => {
         const newMessages = [...prev];
