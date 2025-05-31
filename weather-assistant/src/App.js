@@ -53,6 +53,7 @@ function App() {
     setInput('');
     setView('chat');
 
+  try {
     // 로딩 상태 메시지 추가
     setMessages(prev => [...prev, { type: 'bot', text: '생각하는 중...' }]);
 
@@ -85,10 +86,11 @@ function App() {
         newMessages.pop(); // 로딩 메시지 제거
         return [...newMessages, {
           type: 'bot',
-          text: reply
+          text: `❌ 오류: ${data.error}`
         }];
       });
-    } catch (error) {
+    }
+  }  catch (error) {
       // 로딩 메시지 제거하고 에러 메시지 추가
       setMessages(prev => {
         const newMessages = [...prev];
