@@ -9,6 +9,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('위치 정보를 불러오는 중...');
+  const [coords, setCoords] = useState(null); // 위도/경도 저장용
+
 
   useEffect(() => {
     const now = new Date();
@@ -16,18 +18,31 @@ function App() {
     const m = now.getMinutes().toString().padStart(2, '0');
     setTime(`${h}:${m}`);
 
-    // 사용자 위치 가져오기 (API 없이 더미 주소 사용)
+  // 위치 정보 가져오기 및 주소 변환
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        console.log('위도:', pos.coords.latitude, '경도:', pos.coords.longitude);
-        setLocation('서울특별시 성동구');
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setCoords({ latitude, longitude }); // 좌표 저장
+
+        try {
+          const res = await fetch('http://localhost:4000/reverse-geocode', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ latitude, longitude })
+          });
+          const data = await res.json();
+          setLocation(data.region || '주소를 찾을 수 없음');
+        } catch (err) {
+          console.error('📍 주소 요청 실패:', err);
+          setLocation('주소 요청 실패');
+        }
       },
       () => {
         setLocation('위치 정보 접근 거부됨');
       }
     );
   }, []);
-
+  
   const handleSend = async () => {
   if (!input.trim()) return;
 
@@ -43,7 +58,11 @@ function App() {
     const res = await fetch('http://localhost:4000/gemini', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userInput: input })
+      body: JSON.stringify({
+        userInput: input,
+        location,
+        coords
+      })
     });
 
     const data = await res.json();
