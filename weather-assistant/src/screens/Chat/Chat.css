@@ -1,0 +1,110 @@
+.chat-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 14px 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 6px 0;
+  position: relative;
+  word-break: break-word;
+  transition: all 0.2s ease;
+}
+
+/* 사용자 메시지 - 흰 배경 + 우측 정렬 */
+.bubble.user {
+  align-self: flex-end;
+  background: #ffffff;
+  color: #121429;
+  border-radius: 18px 18px 6px 18px;
+}
+
+/* 챗봇 메시지 - 반투명 유리 + 좌측 정렬 */
+.bubble.bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f5f5;
+  border-radius: 18px 18px 18px 6px;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* 날씨 카드 */
+.weather-card {
+  margin-top: 10px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  animation: fadeIn 0.4s ease-in;
+}
+
+.weather-icon {
+  font-size: 28px;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.temp {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.condition {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.details {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* 미세먼지 & 꽃가루 카드 */
+.dust-card, .pollen-card {
+  margin-top: 10px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.dust-title, .pollen-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dust-info, .pollen-info {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
