@@ -22,64 +22,7 @@ body {
   justify-content: space-between;
 }
 
-/* HOME */
-.home-screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-top: 40px;
-}
-
-.time-bar {
-  font-size: 14px;
-  opacity: 0.6;
-}
-
-.welcome {
-  font-size: 20px;
-  font-weight: 400;
-  text-align: center;
-}
-
-.summary {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 24px;
-}
-
-.preset-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.preset-buttons button {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  padding: 14px 16px;
-  font-size: 15px;
-  color: white;
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-}
-
-.glow-mic {
-  margin-top: 32px;
-  width: 60px;
-  height: 60px;
-  font-size: 26px;
-  border-radius: 50%;
-  border: none;
-  background: radial-gradient(circle, #a9b8ff, #5c5ce0);
-  box-shadow: 0 0 20px #849bff, 0 0 60px rgba(132, 155, 255, 0.3);
-  cursor: pointer;
-}
-
-/* 입력창 고정 */
+/* 공통 입력창 스타일 */
 .footer-input {
   display: flex;
   gap: 10px;
@@ -97,6 +40,11 @@ body {
   backdrop-filter: blur(12px);
   outline: none;
   font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-input input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer-input button {
@@ -108,168 +56,10 @@ body {
   font-size: 18px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(127, 157, 255, 0.5);
-}
-
-/* CHAT */
-.chat-screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.messages {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.bubble {
-  max-width: 80%;
-  padding: 14px 18px;
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 6px 0;
-  position: relative;
-  word-break: break-word;
   transition: all 0.2s ease;
 }
 
-/* ✅ 사용자 메시지 - 흰 배경 + 우측 정렬 + 살짝 그림자 */
-.bubble.user {
-  align-self: flex-end;
-  background: #ffffff;
-  color: #121429;
-  border-radius: 18px 18px 6px 18px;
-
+.footer-input button:hover {
+  background: #6b89ff;
+  transform: scale(1.05);
 }
-
-/* ✅ 챗봇 메시지 - 반투명 유리 + 좌측 정렬 */
-.bubble.bot {
-  align-self: flex-start;
-  background: rgba(255, 255, 255, 0.05);
-  color: #f5f5f5;
-  border-radius: 18px 18px 18px 6px;
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-}
-
-
-
-
-/* LISTENING */
-.listening-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120px;
-  gap: 24px;
-}
-
-.listening-text {
-  font-size: 18px;
-  opacity: 0.8;
-}
-
-.mic-pulse {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #f0a9ff, #643fe6);
-  animation: pulse 1.2s infinite ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-}
-
-.back-button {
-  padding: 10px 16px;
-  border-radius: 16px;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  cursor: pointer;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.weather-card {
-  margin-top: 10px;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-  animation: fadeIn 0.4s ease-in;
-}
-
-.weather-icon {
-  font-size: 28px;
-}
-
-.weather-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.temp {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.condition {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.details {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-top: 2px;
-}
-
-.dust-card, .pollen-card {
-  margin-top: 10px;
-  padding: 12px 16px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  border: 1.5px solid;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.dust-title, .pollen-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.dust-info, .pollen-info {
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-.location {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 4px;
-}
-
-
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
