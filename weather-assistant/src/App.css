@@ -1,26 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
-
+/* 전역 설정 */
 body {
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  background-color: #0b183f;
+  color: #ffffff;
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #1e2a78, #121429);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  padding: 0;
+  background: linear-gradient(180deg, #091837, #2B468E);
 }
 
-.app {
+/* 공통 레이아웃 */
+.app-container {
+  max-width: 430px;
   width: 100%;
-  max-width: 420px;
-  height: 100vh;
+  margin: 0 auto;
   padding: 24px;
   box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: 100vh;
 }
+
 
 /* 공통 입력창 스타일 */
 .footer-input {
@@ -40,7 +40,7 @@ body {
   backdrop-filter: blur(12px);
   outline: none;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif; /* 폰트 통일 */
 }
 
 .footer-input input::placeholder {
