@@ -8,7 +8,8 @@ const Home = ({
   setInput, 
   handleSend, 
   sendFromPreset, 
-  handleVoiceInput 
+  handleVoiceInput,
+  weather
 }) => {
   return (
     <>
@@ -16,7 +17,18 @@ const Home = ({
         <div className="time-bar">{time}</div>
         <h1 className="welcome">Hey 나연, welcome back!</h1>
         <p className="location">📍 {location}</p>
-        <p className="summary">15°C · 흐림 · 미세먼지 보통</p>
+        <p className="summary">{weather
+          ? `${weather.temp}°C · ${weather.condition} · 미세먼지 보통`
+          : '날씨 정보를 불러오는 중...'}</p>
+        <video
+          //src={`${process.env.PUBLIC_URL}/weather-icons/${weather.condition.replace(/\s/g, '-').toLowerCase()}.png`}
+          src={`${process.env.PUBLIC_URL}/Lumee.mp4`}
+          width="214"
+          height="214"
+          autoPlay
+          loop
+          muted
+        />
         <div className="preset-buttons">
           <button onClick={() => sendFromPreset('오늘 날씨 어때?')}>
             오늘 날씨 어때?
