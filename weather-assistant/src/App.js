@@ -12,6 +12,7 @@ function App() {
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('위치 정보를 불러오는 중...');
   const [coords, setCoords] = useState(null); // 위도/경도 저장용
+  const [weather, setWeather] = useState(null); // 날씨 상태 추가
 
 
   useEffect(() => {
@@ -25,7 +26,8 @@ function App() {
       async (pos) => {
         const { latitude, longitude } = pos.coords;
         setCoords({ latitude, longitude }); // 좌표 저장
-
+        
+        // 주소 요청
         try {
           const res = await fetch('http://localhost:4000/reverse-geocode', {
             method: 'POST',
@@ -38,6 +40,21 @@ function App() {
           console.error('📍 주소 요청 실패:', err);
           setLocation('주소 요청 실패');
         }
+
+        // 날씨 요청
+        try {
+        const res = await fetch('http://localhost:4000/weather', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ latitude, longitude })
+        });
+        const data = await res.json();
+        setWeather(data); // 날씨 상태 저장
+        } catch (err) {
+          console.error('🌧️ 날씨 정보 오류:', err);
+        }
+
+
       },
       () => {
         setLocation('위치 정보 접근 거부됨');
@@ -187,6 +204,7 @@ function App() {
           handleSend={handleSend}
           sendFromPreset={sendFromPreset}
           handleVoiceInput={handleVoiceInput}
+          weather={weather}
         />
       )}
 

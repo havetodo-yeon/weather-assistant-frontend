@@ -24,6 +24,17 @@
   margin-bottom: 24px;
 }
 
+.sub-summary {
+  font-size: 13px;
+  color: #ccc;
+  margin-top: -12px;
+  margin-bottom: 16px;
+}
+
+.weather-visual {
+  margin: 8px 0 20px;
+}
+
 .preset-buttons {
   width: 100%;
   display: flex;
