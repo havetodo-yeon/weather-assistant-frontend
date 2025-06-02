@@ -16,7 +16,6 @@ const Home = ({
   return (
     <div className="app-container"> {/* ✅ 공통 정렬용 래퍼 추가 */}
       <div className="home-screen">
-        <div className="time-bar">{time}</div>
         <h1 className="welcome">Hey 나연, welcome back!</h1>
         
         {/* 날짜 출력 */}

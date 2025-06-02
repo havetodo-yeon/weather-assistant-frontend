@@ -1,11 +1,15 @@
 /* 전역 설정 */
 body {
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-  background-color: #0b183f;
   color: #ffffff;
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, #091837, #2B468E);
+  background: linear-gradient(
+    180deg,
+    #091837 0%,
+    #091837 55%,
+    #1F366F 100%
+  );
 }
 
 /* 공통 레이아웃 */
