@@ -8,12 +8,13 @@ const Chat = ({
   handleSend 
 }) => {
   return (
-    <>
+    <div className="app-container"> {/* ✅ 공통 레이아웃 적용 */}
       <div className="chat-screen">
         <div className="messages">
           {messages.map((m, i) => (
             <div key={i} className={`bubble ${m.type}`}>
               <div>{m.text}</div>
+
               {m.weather && (
                 <div className="weather-card">
                   <div className="weather-icon">{m.weather.icon}</div>
@@ -24,12 +25,14 @@ const Chat = ({
                   </div>
                 </div>
               )}
+
               {m.dust && (
                 <div className="dust-card" style={{ borderColor: m.dust.color }}>
                   <div className="dust-title">🌫️ 미세먼지</div>
                   <div className="dust-info">{m.dust.level} ({m.dust.value})</div>
                 </div>
               )}
+
               {m.pollen && (
                 <div className="pollen-card">
                   <div className="pollen-title">{m.pollen.icon} 꽃가루</div>
@@ -40,6 +43,7 @@ const Chat = ({
           ))}
         </div>
       </div>
+
       <div className="footer-input">
         <input
           type="text"
@@ -50,7 +54,7 @@ const Chat = ({
         />
         <button onClick={handleSend}>➤</button>
       </div>
-    </>
+    </div>
   );
 };
 
