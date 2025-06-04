@@ -1,3 +1,206 @@
+/* 부모 헤더의 설정 */
+.weather-header {
+  width: 100%;
+  height: 56px;
+  position: absolute;
+  top: 59px; /* 상태바 밑에 */
+  
+  background: transparent;
+  
+  display: flex;    /* 자식들을 가로로 나란히 배치 */
+  justify-content: space-between;  /* 첫째는 왼쪽, 셋째는 오른쪽, 둘째는 가운데 */
+  align-items: center;   /* 모든 자식을 세로 중앙 정렬 */
+  padding: 0 20px;
+  z-index: 10;
+}
+
+
+/* 왼쪽 메뉴 버튼 */
+.header-menu-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 메뉴 버튼에 마우스 올렸을 때 효과 */
+.header-menu-btn:hover {
+  transform: scale(1.05);          /* 크기를 5% 확대 */
+  opacity: 0.8;
+}
+
+/* 메뉴 버튼 클릭했을 때 효과 */
+.header-menu-btn:active {
+  transform: scale(0.95);          /* 크기를 5% 축소 */
+}
+
+
+/* 헤더 위치 버튼 */
+.header-location {
+  /* 기본 button 스타일 제거 */
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  outline: none;
+  
+  /* 레이아웃 */
+  display: flex;      /* 📍과 Seoul을 나란히 배치 */
+  align-items: center; /* 세로로 가운데 정렬 */
+  gap: 3px;          /* 📍과 Seoul 사이 간격 */         
+  
+  /* 헤더에서 중앙 배치 */
+  /* flex: 1; 남은 공간을 모두 차지 */
+  justify-content: center; /* 가로로 가운데 정렬 */
+  
+  /* 마우스 올리면 손가락 모양으로 변경 */
+  cursor: pointer;
+  /* transition: all 0.2s ease; */
+}
+
+/* 메뉴 버튼에 마우스 올렸을 때 효과 */
+.header-location:hover {
+  opacity: 0.8;
+}
+
+/* 위치 이름 버튼 클릭했을 때 효과 (위치 이름 클릭했을 때 위치 직접 검색도 기능도 구현 확장성을 고려해 버튼으로 만들어 둠 */
+.header-location:active {
+  transform: scale(0.95);          /* 클릭시 크기 5% 축소 */
+}
+
+.header-location-name {
+  /* 필수 텍스트 스타일 */
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #FFFFFF;
+  
+  /* 오버플로우 처리 - 지역 이름이 길 때 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 270px;        /*  최대 너비 */
+}
+
+/* 프로필 버튼 - 32x32 고정 크기 */
+.header-profile {
+  /* 기본 button 스타일 제거 */
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  outline: none;
+  
+  /* 고정 크기 설정 */
+  width: 32px !important;         /* 가로 32px 고정 */
+  height: 32px !important;        /* 세로 32px 고정 */
+  min-width: 32px;               /* 최소 크기도 32px */
+  min-height: 32px;              /* 최소 크기도 32px */
+  max-width: 32px;               /* 최대 크기도 32px */
+  max-height: 32px;              /* 최대 크기도 32px */
+  
+  /* 원형 모양 */
+  border-radius: 50%;            /* 완전한 원 */
+  overflow: hidden;              /* 넘치는 부분 잘라내기 */
+  
+  cursor: pointer;
+}
+
+/* 프로필 사진 - 자동 크기 조정 */
+.profile-image {
+  width: 100% !important;        /* 부모(32px)에 맞게 가로 크기 */
+  height: 100% !important;       /* 부모(32px)에 맞게 세로 크기 */
+  object-fit: cover;             /* 비율 유지하면서 영역 꽉 채우기 */
+  object-position: center;       /* 사진 중앙 부분 보여주기 */
+  display: block;                /* 기본 여백 제거 */
+  
+  /* 추가 보장 */
+  max-width: none;               /* 최대 크기 제한 해제 */
+  max-height: none;              /* 최대 크기 제한 해제 */
+  flex-shrink: 0;                /* 줄어들지 않게 */
+}
+
+
+/* 아이콘 크기  */
+.menu-icon,
+.header-location-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.profile-icon {
+  width: 32px;                 
+  height: 32px;           
+}
+
+
+
+/* 날짜  */
+.date {
+
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 38;
+  
+  position: absolute;
+  top: 115px;                    /* 상태바(59) + 헤더(56) = 115px */
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 38px; 
+  
+  margin: 0;
+}
+
+
+/* 기온 */
+.temperature {
+
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 69;
+  
+  position: absolute;
+  top: 153px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 69px; 
+  
+  margin: 0;
+}
+
+
+
+/* 기상 정보 - 중간 크기 */
+.condition {
+  font-size: 30px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1.0);
+  position: absolute;
+  top: 235px;
+  text-align: center; /* 중앙 정렬 */
+}
+
+/* 체감/최고/최저 - 작게 */
+.sub-summary {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 60px;
+  margin-bottom: 16px;
+  position: absolute;
+  top: 220px;
+  text-align: center; /* 중앙 정렬 */
+}
 .home-screen {
   flex: 1;
   display: flex;
@@ -7,17 +210,41 @@
   margin-top: 40px;
 }
 
-.time-bar {
-  font-size: 14px;
-  opacity: 0.6;
+
+.lumee-magic-orb {
+  width: 270px;
+  height: 270px;
+  position: absolute;
+  top: 290px;
+  left: 80px;
+  pointer-events: none; /* 사용자 클릭 방지 */
+  z-index: 0;            /* 필요 시 조정 */
 }
 
-.welcome {
-  font-size: 20px;
-  font-weight: 400;
+.greeting {
+  position: absolute;
+  top: 550px;
+  left: 154px;
+
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
   text-align: center;
 }
 
+.main-question {
+  position: absolute;
+  top: 574px;
+  left: 50px;
+  width: 329px;
+  height: 30px;
+
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/*
 .summary {
   font-size: 14px;
   opacity: 0.8;
@@ -34,18 +261,21 @@
 .weather-visual {
   margin: 8px 0 20px;
 }
-
+*/
 .preset-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2열로 나눔 */
+  gap: 12px 12px;                 /* 세로, 가로 간격 */
+  margin-top: auto;              /* 아래쪽으로 밀기 */
+  padding: 20px 0;
 }
+
 
 .preset-buttons button {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   padding: 14px 16px;
+  font-family: inherit; /* 이 줄 추가 */
   font-size: 15px;
   color: white;
   border-radius: 16px;
@@ -59,6 +289,7 @@
   transform: translateY(-2px);
 }
 
+/*
 .glow-mic {
   margin-top: 32px;
   width: 60px;
@@ -72,12 +303,8 @@
   transition: transform 0.2s ease;
 }
 
+
 .glow-mic:hover {
   transform: scale(1.05);
 }
-
-.location {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 4px;
-}
+*/

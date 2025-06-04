@@ -10,7 +10,7 @@ function App() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [time, setTime] = useState('');
-  const [location, setLocation] = useState('위치 정보를 불러오는 중...');
+  const [location, setLocation] = useState('Fetching location...');
   const [coords, setCoords] = useState(null); // 위도/경도 저장용
   const [weather, setWeather] = useState(null); // 날씨 상태 추가
 
