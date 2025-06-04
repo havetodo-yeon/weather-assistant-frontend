@@ -7,7 +7,7 @@ const Home = ({
   input, 
   setInput, 
   handleSend, 
-  sendFromPreset, 
+  sendFromFAQ, 
   handleVoiceInput,
   weather
 }) => {
@@ -49,7 +49,7 @@ const Home = ({
 
       </header>
       
-      <div className="home-screen">
+      <div className="home-weather-info">
 
         
         {/* 날짜 출력 */}
@@ -71,6 +71,9 @@ const Home = ({
           `Feels like ${weather.feelsLike}° | H: ${weather.tempMax}° L: ${weather.tempMin}°` 
           : 'Loading...'}
         </p>
+      </div>
+
+      <div className="background-media">
 
         <video
           className="lumee-magic-orb"
@@ -90,24 +93,26 @@ const Home = ({
             type="video/webm"
           />
         </video>
+      </div>
 
  
         {/* User */}
+      <div className="user-interation">
         <div className="greeting">Hello, Minseo👋</div>
         <h1 className="main-question">What weather info do you need?</h1>
 
 
-        <div className="preset-buttons">
-          <button onClick={() => sendFromPreset('What’s the weather like today?')}>
+        <div className="FAQ-buttons">
+          <button onClick={() => sendFromFAQ('What’s the weather like today?')}>
             What’s the weather like today?
           </button>
-          <button onClick={() => sendFromPreset('How’s the air quality today?')}>
+          <button onClick={() => sendFromFAQ('How’s the air quality today?')}>
             How’s the air quality today?
           </button>
-          <button onClick={() => sendFromPreset('Do I need an umbrella today?')}>
+          <button onClick={() => sendFromFAQ('Do I need an umbrella today?')}>
             Do I need an umbrella today?
           </button>
-          <button onClick={() => sendFromPreset('What should I wear today?')}>
+          <button onClick={() => sendFromFAQ('What should I wear today?')}>
             What should I wear today?
           </button>
         </div>

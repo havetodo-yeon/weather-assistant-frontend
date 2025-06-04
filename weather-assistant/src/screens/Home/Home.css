@@ -165,7 +165,7 @@
   height: 69;
   
   position: absolute;
-  top: 153px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
+  top: 165px;                    
   left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
   transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
   
@@ -181,33 +181,45 @@
 
 
 
-/* 기상 정보 - 중간 크기 */
+/* 기상 정보 */
 .condition {
-  font-size: 30px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1.0);
+
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 22;
+  
   position: absolute;
-  top: 235px;
-  text-align: center; /* 중앙 정렬 */
+  top: 242px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 22px; 
+  
+  margin: 0;
 }
 
-/* 체감/최고/최저 - 작게 */
+/* 체감/최고/최저 */
 .sub-summary {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.9);
-  margin-top: 60px;
-  margin-bottom: 16px;
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 20;
+  
   position: absolute;
-  top: 220px;
-  text-align: center; /* 중앙 정렬 */
-}
-.home-screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-top: 40px;
+  top: 268px;                 
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #FFFFFF99;
+  text-align: center;
+  line-height: 20px; 
+  
+  margin: 0;
 }
 
 
@@ -216,34 +228,59 @@
   height: 270px;
   position: absolute;
   top: 290px;
-  left: 80px;
+  left: 50%;                    /* 화면 중앙에서 시작 */
+  transform: translateX(-50%);  /* 자기 크기의 절반만큼 왼쪽으로 이동 */
   pointer-events: none; /* 사용자 클릭 방지 */
-  z-index: 0;            /* 필요 시 조정 */
+  z-index: 0;            /* 맨 뒤에 배치 (다른 요소들 아래) */
 }
 
 .greeting {
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 23px;
+  
   position: absolute;
-  top: 550px;
-  left: 154px;
-
+  top: 558px;                 
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 8px;
+  font-weight: 500;
+  color: #FFFFFF;
   text-align: center;
+  line-height: 23px; 
+  
+  margin: 0;
 }
 
 .main-question {
+  width: 386px;
+  height: 30px;                  
+  
   position: absolute;
-  top: 574px;
-  left: 50px;
-  width: 329px;
-  height: 30px;
-
+  top: 582px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
-}
+  line-height: 30px;
+  
+  /* 그라데이션 텍스트 */
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
 
+  /* 브라우저 호환성 */
+  color: #FFFFFF;                        /* 1. 대체용: 오래된 브라우저용 기본 색상 */
+  -webkit-background-clip: text;         /* 2. 웹킷: Safari, Chrome용 */
+  -webkit-text-fill-color: transparent; /* 2. 웹킷: 텍스트 색상 투명하게 */
+  background-clip: text;                 /* 3. 표준: 최신 브라우저용 */
+  color: transparent;                    /* 3. 표준: 텍스트 색상 투명하게 */
+  
+  
+  margin: 0;
+}
 /*
 .summary {
   font-size: 14px;
@@ -262,7 +299,7 @@
   margin: 8px 0 20px;
 }
 */
-.preset-buttons {
+.FAQ-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr; /* 2열로 나눔 */
   gap: 12px 12px;                 /* 세로, 가로 간격 */
@@ -271,7 +308,7 @@
 }
 
 
-.preset-buttons button {
+.FAQ-buttons button {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   padding: 14px 16px;
@@ -284,7 +321,7 @@
   transition: all 0.2s ease;
 }
 
-.preset-buttons button:hover {
+.FAQ-buttons button:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
