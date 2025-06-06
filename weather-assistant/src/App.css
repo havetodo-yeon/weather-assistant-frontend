@@ -41,7 +41,7 @@ body {
   background: linear-gradient(
     180deg,
     #091837 0%,
-    #091837 55%,
+    #091837 50%,
     #1F366F 100%
   );
   
@@ -83,69 +83,4 @@ body {
     padding-left: env(safe-area-inset-left, 16px);
     padding-right: env(safe-area-inset-right, 16px);
   }
-}
-
-/* 공통 입력창 스타일 */
-.footer-input {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-top: auto;
-  padding: 0 4px;
-}
-
-.footer-input input {
-  flex: 1;
-  padding: 16px 20px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  outline: none;
-  font-size: 16px;
-  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-  min-height: 52px;
-  transition: all 0.3s ease;
-}
-
-.footer-input input:focus {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(127, 157, 255, 0.6);
-  box-shadow: 0 0 20px rgba(127, 157, 255, 0.3);
-}
-
-.footer-input input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-input button {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #7f9dff 0%, #6b89ff 100%);
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(127, 157, 255, 0.4);
-  transition: all 0.2s ease;
-}
-
-.footer-input button:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 25px rgba(127, 157, 255, 0.5);
-}
-
-.footer-input button:active {
-  transform: translateY(0) scale(0.98);
-}
-
-/* 성능 최적화 - 애니메이션 요소만 */
-.footer-input button {
-  transform: translateZ(0);
-  -webkit-font-smoothing: antialiased;
 }

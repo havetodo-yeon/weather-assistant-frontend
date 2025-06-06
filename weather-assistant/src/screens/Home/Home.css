@@ -140,7 +140,7 @@
 .date {
 
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
-  height: 38;
+  height: 38px;
   
   position: absolute;
   top: 115px;                    /* 상태바(59) + 헤더(56) = 115px */
@@ -162,7 +162,7 @@
 .temperature {
 
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
-  height: 69;
+  height: 69px;
   
   position: absolute;
   top: 165px;                    
@@ -185,7 +185,7 @@
 .condition {
 
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
-  height: 22;
+  height: 22px;
   
   position: absolute;
   top: 242px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
@@ -205,7 +205,7 @@
 /* 체감/최고/최저 */
 .sub-summary {
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
-  height: 20;
+  height: 22px;
   
   position: absolute;
   top: 268px;                 
@@ -213,7 +213,7 @@
   transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
   
   font-family: 'Poppins', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   color: #FFFFFF99;
   text-align: center;
@@ -281,67 +281,412 @@
   
   margin: 0;
 }
-/*
-.summary {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 24px;
-}
 
-.sub-summary {
-  font-size: 13px;
-  color: #ccc;
-  margin-top: -12px;
-  margin-bottom: 16px;
-}
-
-.weather-visual {
-  margin: 8px 0 20px;
-}
-*/
+/* FAQ 카드 컨테이너 (그리드) */
 .FAQ-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2열로 나눔 */
-  gap: 12px 12px;                 /* 세로, 가로 간격 */
-  margin-top: auto;              /* 아래쪽으로 밀기 */
-  padding: 20px 0;
+  grid-template-columns: 1fr 1fr; /* 2열 */
+  gap: 16px;                       /* 카드 사이 간격 */
+  
+  position: absolute;
+  top: 635px;                      /* 적절한 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 390px;                    /* 전체 컨테이너 너비 */
+  
+  padding: 0;
+  margin: 0;
 }
 
 
-.FAQ-buttons button {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  padding: 14px 16px;
-  font-family: inherit; /* 이 줄 추가 */
-  font-size: 15px;
-  color: white;
+/* 개별 FAQ 카드 래퍼 - 꼭 필요 */
+.FAQ-card {
+  position: relative;              /* 편집 버튼 절대 위치 기준점 */
+  width: 187px;
+  height: 79px;
+}
+
+
+/* 메인 FAQ 버튼 */
+.FAQ-button {
+  /* 크기 - 카드 전체 크기 */
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  
+  /* 레이아웃 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* 모양 */
   border-radius: 16px;
-  backdrop-filter: blur(10px);
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  
+  /* 배경 */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  
+  /* 그림자 */
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  
+  /* 텍스트 */
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: left;
+  line-height: 22px;
+  
+  /* 인터랙션 */
   cursor: pointer;
   transition: all 0.2s ease;
+  
+  /* 기본 스타일 초기화 */
+  margin: 0;
+  outline: none;
 }
 
-.FAQ-buttons button:hover {
-  background: rgba(255, 255, 255, 0.15);
+/* FAQ 버튼 호버 효과 */
+.FAQ-button:hover {
+  background: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
+  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.25);
 }
 
-/*
-.glow-mic {
-  margin-top: 32px;
-  width: 60px;
-  height: 60px;
-  font-size: 26px;
+/* FAQ 버튼 클릭 효과 */
+.FAQ-button:active {
+  transform: translateY(0);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* 편집 버튼 */
+.FAQ-edit-btn {
+  /* 위치 - 카드 우측 상단 */
+  position: absolute !important;   /* 중요: 다른 스타일 덮어쓰기 방지 */
+  top: -7px;
+  right: 0px;
+  
+  /* 크기 */
+  width: 20px;
+  height: 20px;
+  
+  /* 모양 */
+  border-radius: 25px;
+  border: none;                    /* 외부 테두리 제거 */
+  
+  /* 배경 */
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(8px);
+  
+  /* 그림자 - 안쪽 테두리 + 외부 그림자 */
+  box-shadow: 
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3), /* 안쪽 테두리 */
+    0px 4px 12px 0px rgba(0, 0, 0, 0.15);        /* 외부 그림자 */
+  
+  /* 레이아웃 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* 패딩 초기화 */
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  /* 인터랙션 */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;                     /* FAQ 버튼 위에 표시 */
+  outline: none;
+}
+
+/* 편집 버튼 호버 효과 */
+.FAQ-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: scale(1.1);
+  box-shadow: 
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3), /* 안쪽 테두리 */
+    0px 4px 12px 0px rgba(0, 0, 0, 0.15);        /* 외부 그림자 */
+}
+
+/* 편집 버튼 클릭 효과 */
+.FAQ-edit-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 편집 아이콘 스타일 */
+.edit-icon {
+  width: 12px;                 
+  height: 12px; 
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+
+/* 편집 버튼 호버 시 아이콘 효과 */
+.FAQ-edit-btn:hover .edit-icon {
+  opacity: 1;
+}
+
+/* 하단 채팅창 컨테이너 */
+.footer-input {
+  position: absolute;
+  top: 830px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 390px;
+  max-width: 390px;
+  
+  display: flex;
+  gap: 8px; 
+  align-items: center;
+  
+  padding: 0;
+  margin: 0;
+  z-index: 20;
+}
+
+/* 입력창 래퍼 */
+.input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: 71px;
+  background: #FFFFFF;
+
+  /* 기본 그림자 효과 추가 */
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  
+  /* 부드러운 전환 효과 */
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+/* 텍스트 입력창 */
+.footer-input input {
+  flex: 1;
+  height: 48px;
+  padding: 13px 56px 13px 16px;
+  
+  /* 모양 */
+  border-radius: 71px;
+  border: none;
+  background: transparent;  /* 배경 투명 */
+  
+  /* 텍스트 */
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #091837;
+  line-height: 22px;
+  
+  outline: none;
+  margin: 0;
+}
+
+/* 입력창 placeholder 스타일 */
+.footer-input input::placeholder {
+  color: rgba(9, 24, 55, 0.60);
+  font-weight: 400;
+}
+
+/* 포커스 시 placeholder 사라지는 효과 */
+.footer-input input:focus::placeholder {
+  opacity: 0;
+}
+
+/* 입력창 호버 효과 */
+.input-wrapper:hover {
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.3),
+    0 0 25px rgba(238, 180, 243, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 입력창 포커스 효과 */
+.input-wrapper:focus-within {
+  box-shadow: 
+    0 0 20px rgba(151, 245, 253, 0.4),
+    0 0 30px rgba(238, 180, 243, 0.3),
+    0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* 마이크 버튼 */
+.mic-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 32px;  
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  outline: none;
+  
+}
+
+/* 마이크 버튼 안의 이미지 */
+.mic-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* 마이크 버튼 호버 효과 - 자연스러운 회색 */
+.mic-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mic-button:hover img {
+  opacity: 1;
+}
+
+/* 마이크 버튼 클릭 효과 - 자연스러운 회색 */
+.mic-button:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* 전송 버튼 */
+.send-button {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  
   border-radius: 50%;
   border: none;
-  background: radial-gradient(circle, #a9b8ff, #5c5ce0);
-  box-shadow: 0 0 20px #849bff, 0 0 60px rgba(132, 155, 255, 0.3);
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  padding: 0;
+  margin: 0;
+  
+  position: relative;
+  overflow: hidden;
+  
+  /* 기본 그림자 효과 - 입력창과 동일 */
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    
+  /* 미묘한 그라데이션 애니메이션 */
+  animation: subtleGradientShift 15s ease-in-out infinite;
+
 }
 
-
-.glow-mic:hover {
-  transform: scale(1.05);
+/* 버튼 내부 반짝임 효과 - 오로라 흐름 */
+.send-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(151, 245, 253, 0.4),
+    rgba(238, 180, 243, 0.4),
+    transparent
+  );
+  animation: auroraFlow 4s linear infinite;
+  border-radius: 50%;
+  filter: blur(2px);
 }
-*/
+
+/* 전송 버튼 안의 아이콘 */
+.send-button img {
+  width: 24px;
+  height: 24px;
+  transform: translate(-1px, 1px);
+  z-index: 10;
+  position: relative;
+}
+
+/* 전송 버튼 호버 효과 - 입력창과 동일 */
+.send-button:hover {
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.3),
+    0 0 25px rgba(238, 180, 243, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* 전송 버튼 클릭 효과 - 입력창과 동일 */
+.send-button:active {
+  box-shadow: 
+    0 0 20px rgba(151, 245, 253, 0.4),
+    0 0 30px rgba(238, 180, 243, 0.3),
+    0 6px 15px rgba(0, 0, 0, 0.12),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 오로라 흐름 애니메이션 */
+@keyframes auroraFlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 미묘한 그라데이션 애니메이션 */
+@keyframes subtleGradientShift {
+  0% {
+    background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  }
+  25% {
+    background: linear-gradient(50deg, #97F5FD 12%, #EEB4F3 88%);
+  }
+  50% {
+    background: linear-gradient(40deg, #97F5FD 19%, #EEB4F3 81%);
+  }
+  75% {
+    background: linear-gradient(52deg, #97F5FD 14%, #EEB4F3 86%);
+  }
+  100% {
+    background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  }
+}
+
+/* 버튼이 비활성화된 경우 */
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 
+    0 0 10px rgba(151, 245, 253, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.send-button:disabled::before {
+  animation: none;
+}
+
+.send-button:disabled:hover {
+  transform: none;
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+}

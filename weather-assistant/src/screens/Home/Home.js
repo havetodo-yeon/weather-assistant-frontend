@@ -49,9 +49,9 @@ const Home = ({
 
       </header>
       
+      {/* 날씨 정보 출력 섹션 */}
       <div className="home-weather-info">
 
-        
         {/* 날짜 출력 */}
         <p className="date">{formattedDate}</p>
 
@@ -96,40 +96,119 @@ const Home = ({
       </div>
 
  
-        {/* User */}
-      <div className="user-interation">
+      {/* User에게 인사 섹션 */}
+      <div className="user-greeting-section">
         <div className="greeting">Hello, Minseo👋</div>
         <h1 className="main-question">What weather info do you need?</h1>
+      </div>
 
-
+      {/* FAQ 버튼 섹션 */}
+      <div className="faq-section">
         <div className="FAQ-buttons">
-          <button onClick={() => sendFromFAQ('What’s the weather like today?')}>
-            What’s the weather like today?
-          </button>
-          <button onClick={() => sendFromFAQ('How’s the air quality today?')}>
-            How’s the air quality today?
-          </button>
-          <button onClick={() => sendFromFAQ('Do I need an umbrella today?')}>
-            Do I need an umbrella today?
-          </button>
-          <button onClick={() => sendFromFAQ('What should I wear today?')}>
-            What should I wear today?
-          </button>
+          <div className="FAQ-card">
+            <button 
+              className="FAQ-button"
+              onClick={() => sendFromFAQ("What's the weather like today?")}
+            >
+              What's the weather like today?
+            </button>
+            <button 
+              className="FAQ-edit-btn"
+              onClick={() => console.log("Edit FAQ 1")}
+              aria-label="FAQ 수정"
+            >
+              <img 
+                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
+                alt="수정"
+                className="edit-icon"
+              />
+            </button>
+          </div>
+
+          <div className="FAQ-card">
+            <button 
+              className="FAQ-button"
+              onClick={() => sendFromFAQ("How's the air quality today?")}
+            >
+              How's the air quality today?
+            </button>
+            <button 
+              className="FAQ-edit-btn"
+              onClick={() => console.log("Edit FAQ 2")}
+              aria-label="FAQ 수정"
+            >
+              <img 
+                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
+                alt="수정"
+                className="edit-icon"
+              />
+            </button>
+          </div>
+
+          <div className="FAQ-card">
+            <button 
+              className="FAQ-button"
+              onClick={() => sendFromFAQ("Do I need an umbrella today?")}
+            >
+              Do I need an umbrella today?
+            </button>
+            <button 
+              className="FAQ-edit-btn"
+              onClick={() => console.log("Edit FAQ 3")}
+              aria-label="FAQ 수정"
+            >
+              <img 
+                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
+                alt="수정"
+                className="edit-icon"
+              />
+            </button>
+          </div>
+
+          <div className="FAQ-card">
+            <button 
+              className="FAQ-button"
+              onClick={() => sendFromFAQ("What should I wear today?")}
+            >
+              What should I wear today?
+            </button>
+            <button 
+              className="FAQ-edit-btn"
+              onClick={() => console.log("Edit FAQ 4")}
+              aria-label="FAQ 수정"
+            >
+              <img 
+                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
+                alt="수정"
+                className="edit-icon"
+              />
+            </button>
+          </div>
         </div>
-
-        {/* <button className="glow-mic" onClick={handleVoiceInput}>🎤</button> */}
-
       </div>
 
       <div className="footer-input">
-        <input
-          type="text"
-          placeholder="Ask Lumee about the weather..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-        />
-        <button onClick={handleSend}>➤</button>
+        <div className="input-wrapper">  {/* 새로운 래퍼 추가 */}
+          <input
+            type="text"
+            placeholder="Ask Lumee about the weather..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          />
+          <button className="mic-button" onClick={handleVoiceInput}>  {/* 마이크 버튼 추가 */}
+            <img 
+              src={`${process.env.PUBLIC_URL}/assets/icons/microphone.svg`}
+              alt="음성입력"
+            />
+          </button>
+        </div>
+        <button className="send-button" onClick={handleSend}>
+          <img 
+            src={`${process.env.PUBLIC_URL}/assets/icons/send.svg`}
+            alt="전송"
+          />
+        </button>
       </div>
     </div>
   );
