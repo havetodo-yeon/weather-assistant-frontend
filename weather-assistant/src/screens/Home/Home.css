@@ -1,0 +1,83 @@
+.home-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.time-bar {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.welcome {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.summary {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 24px;
+}
+
+.sub-summary {
+  font-size: 13px;
+  color: #ccc;
+  margin-top: -12px;
+  margin-bottom: 16px;
+}
+
+.weather-visual {
+  margin: 8px 0 20px;
+}
+
+.preset-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preset-buttons button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: white;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-buttons button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.glow-mic {
+  margin-top: 32px;
+  width: 60px;
+  height: 60px;
+  font-size: 26px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle, #a9b8ff, #5c5ce0);
+  box-shadow: 0 0 20px #849bff, 0 0 60px rgba(132, 155, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.glow-mic:hover {
+  transform: scale(1.05);
+}
+
+.location {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
