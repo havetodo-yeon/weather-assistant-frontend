@@ -1,45 +1,45 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Chat.css';
+import WeatherLineChart from './WeatherLineChart'; // 경로는 파일 위치에 따라 조절
 
-const Chat = ({ 
-  messages, 
-  input, 
-  setInput, 
-  handleSend 
+// import {
+//   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer
+// } from 'recharts';
+
+const Chat = ({
+  messages,
+  input,
+  setInput,
+  handleSend
 }) => {
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    const last = messages[messages.length - 1];
+    if (last?.graph) {
+      console.log('📊 최종 렌더링 대상 m.graph:', last.graph);
+
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+        console.log('🔁 window.resize 트리거됨');
+      }, 100);
+    }
+  }, [messages]);
+
   return (
-    <div className="app-container"> {/* ✅ 공통 레이아웃 적용 */}
+    <div className="app-container">
       <div className="chat-screen">
         <div className="messages">
           {messages.map((m, i) => (
-            <div key={i} className={`bubble ${m.type}`}>
-              <div>{m.text}</div>
+            <div className={`bubble ${m.type}`}>
+  {m.text && <div>{m.text}</div>}
+  {Array.isArray(m.graph) && m.graph.length > 0 && (
+    <div className="graph-card">
+      <WeatherLineChart graph={m.graph} />
+    </div>
+  )}
+</div>
 
-              {m.weather && (
-                <div className="weather-card">
-                  <div className="weather-icon">{m.weather.icon}</div>
-                  <div className="weather-info">
-                    <div className="temp">{m.weather.temp}°</div>
-                    <div className="condition">{m.weather.condition}</div>
-                    <div className="details">💧 {m.weather.humidity} | 🌬 {m.weather.wind}</div>
-                  </div>
-                </div>
-              )}
-
-              {m.dust && (
-                <div className="dust-card" style={{ borderColor: m.dust.color }}>
-                  <div className="dust-title">🌫️ 미세먼지</div>
-                  <div className="dust-info">{m.dust.level} ({m.dust.value})</div>
-                </div>
-              )}
-
-              {m.pollen && (
-                <div className="pollen-card">
-                  <div className="pollen-title">{m.pollen.icon} 꽃가루</div>
-                  <div className="pollen-info">{m.pollen.level} · {m.pollen.risk}</div>
-                </div>
-              )}
-            </div>
           ))}
         </div>
       </div>

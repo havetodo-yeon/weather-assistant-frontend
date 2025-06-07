@@ -60,25 +60,27 @@ function App() {
         setLocation('위치 정보 접근 거부됨');
       }
     );
-  }, []);
-  
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  }, [input]);
+    
+const handleSend = async () => {
+  const trimmedInput = input.trim();
+  if (!trimmedInput) return;
 
-    const userMsg = { type: 'user', text: input };
-    setMessages(prev => [...prev, userMsg]);
-    setInput('');
-    setView('chat');
+  const userMsg = { type: 'user', text: trimmedInput };
+  setMessages(prev => [...prev, userMsg]);
+  setInput('');
+  setView('chat');
 
   try {
-    // 로딩 상태 메시지 추가
+    // 1. 로딩 메시지 추가
     setMessages(prev => [...prev, { type: 'bot', text: '생각하는 중...' }]);
 
+    // 2. Gemini에 사용자 질문 전송
     const res = await fetch('http://localhost:4000/gemini', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userInput: input,
+        userInput: trimmedInput,
         location,
         coords
       })
@@ -86,16 +88,64 @@ function App() {
 
     const data = await res.json();
 
-    // 로딩 메시지 제거하고 실제 응답 추가
+    const graphCoords = data.resolvedCoords || coords;
+    console.log('🧠 Gemini 응답 전체:', data);
+    console.log('📍 resolvedCoords:', data.resolvedCoords);
+
+    // 3. (필요할 경우) 그래프 데이터 요청
+    let graphData = null;
+    if (
+      (trimmedInput.includes('기온') || trimmedInput.includes('온도') || trimmedInput.includes('기온 변화')) &&
+      graphCoords &&
+      typeof graphCoords.lat === 'number' &&
+      typeof graphCoords.lon === 'number'
+    ) {
+      console.log('📡 그래프 데이터 요청 시작됨');
+      const graphRes = await fetch('http://localhost:4000/weather-graph', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          latitude: graphCoords.lat,
+          longitude: graphCoords.lon
+        })
+      });
+      graphData = await graphRes.json();
+      console.log('📡 그래프 데이터 수신:', graphData);
+    }
+
+    // 4. 로딩 메시지 제거하고 텍스트 + 그래프 순서로 응답 출력
     setMessages(prev => {
       const newMessages = [...prev];
-      newMessages.pop(); // 로딩 메시지 제거
-      return [...newMessages, {
+      newMessages.pop(); // '생각하는 중...' 제거
+
+      const messageBlock = [];
+
+      // 텍스트 응답 먼저
+      messageBlock.push({
         type: 'bot',
         text: data.reply || '응답을 이해하지 못했어요.'
-      }];
+      });
+
+      // 그래프 응답 나중
+      if (Array.isArray(graphData?.hourlyTemps) && graphData.hourlyTemps.length > 0) {
+        messageBlock.push({
+          type: 'bot',
+          graph: graphData.hourlyTemps
+        });
+      }
+
+      //return [...newMessages, ...messageBlock];
+      return [
+    ...newMessages,
+    {
+      type: 'bot',
+      text: data.reply || '응답을 이해하지 못했어요.',
+      graph: Array.isArray(graphData?.hourlyTemps) ? graphData.hourlyTemps : null
+    }
+  ];
     });
 
+    // 5. Gemini 자체 오류 처리
     if (data.error) {
       console.error('API 오류:', data.error);
       setMessages(prev => {
@@ -108,7 +158,7 @@ function App() {
       });
     }
   }  catch (error) {
-      // 로딩 메시지 제거하고 에러 메시지 추가
+      // 6. 로딩 메시지 제거하고 에러 메시지 추가
       setMessages(prev => {
         const newMessages = [...prev];
         newMessages.pop(); // 로딩 메시지 제거
@@ -119,6 +169,7 @@ function App() {
       });
     }
   };
+
 
   const sendFromPreset = (text) => {
     const userMsg = { type: 'user', text };
