@@ -1,69 +1,87 @@
 /* 전역 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   color: #ffffff;
-  margin: 0;
-  padding: 0;
+  background: #000;
+  overflow-x: hidden;
+  
+}
+
+/* 메인 앱 래퍼 */
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+/* 핵심 앱 컨테이너 */
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  max-width: 430px;
+  max-height: 932px;
+  
+  /* 안전 영역 처리 */
+  /* iPhone 14 Pro Max 기준 설정 */
+  padding-top: env(safe-area-inset-top, 59px); 
+  padding-bottom: env(safe-area-inset-bottom, 34px);
+  padding-left: env(safe-area-inset-left, 20px);
+  padding-right: env(safe-area-inset-right, 20px);
+  
+
+  /* 배경 */
   background: linear-gradient(
     180deg,
     #091837 0%,
-    #091837 55%,
+    #091837 50%,
     #1F366F 100%
   );
-}
-
-/* 공통 레이아웃 */
-.app-container {
-  max-width: 430px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 24px;
-  box-sizing: border-box;
-
+  
+  /* 레이아웃 */
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  position: relative;
+  margin: 0 auto;
+  /* overflow: hidden; */
 }
 
 
-/* 공통 입력창 스타일 */
-.footer-input {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: auto;
+
+/* 데스크톱에서 카드 스타일 */
+@media (min-width: 768px) {
+  .app {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 40px;
+  }
+  
+  /* 휴대폰 모양 만들기 */
+  .app-container {
+    width: 430px;
+    height: 932px;
+    border-radius: 40px;
+    border: 8px solid #48484a;
+  
+  /* 프리미엄 메탈릭 효과 */
+    box-shadow: 
+      0 25px 80px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  }
 }
 
-.footer-input input {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  outline: none;
-  font-size: 14px;
-  font-family: 'Poppins', 'Noto Sans KR', sans-serif; /* 폰트 통일 */
-}
-
-.footer-input input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-input button {
-  padding: 12px 18px;
-  border-radius: 50%;
-  border: none;
-  background: #7f9dff;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(127, 157, 255, 0.5);
-  transition: all 0.2s ease;
-}
-
-.footer-input button:hover {
-  background: #6b89ff;
-  transform: scale(1.05);
+/* 작은 디바이스 대응 */
+@media (max-width: 375px) {
+  .app-container {
+    padding-left: env(safe-area-inset-left, 16px);
+    padding-right: env(safe-area-inset-right, 16px);
+  }
 }
