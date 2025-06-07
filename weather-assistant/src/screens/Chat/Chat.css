@@ -365,8 +365,9 @@
 .graph-card {
   background-color: #f8fafc;
   border-radius: 12px;
-  padding-left: 8px;
-  height: 130px !important;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 140px !important;
   min-height: 130px;
   margin-top: 12px;
   margin-bottom: 12px;
