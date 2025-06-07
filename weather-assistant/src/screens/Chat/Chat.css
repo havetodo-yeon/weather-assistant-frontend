@@ -3,26 +3,27 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  margin-bottom: 20px;
+  max-height: 100%;
 }
 
 .messages {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 1;
+  overflow-y: auto;
 }
-
 .bubble {
   max-width: 80%;
   padding: 14px 18px;
   font-size: 15px;
   line-height: 1.6;
   margin: 6px 0;
-  position: relative;
   word-break: break-word;
   transition: all 0.2s ease;
+  background: transparent;
+  overflow: visible !important;
 }
-
 /* 사용자 메시지 - 흰 배경 + 우측 정렬 */
 .bubble.user {
   align-self: flex-end;
@@ -359,4 +360,20 @@
 .send-button:disabled:hover {
   transform: none;
   background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+}
+
+.graph-card {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 140px !important;
+  min-height: 130px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  overflow: visible !important;
+  position: relative !important;
+  display: block;
+  z-index: 2;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
