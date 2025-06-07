@@ -71,10 +71,6 @@
   font-weight: 600;
 }
 
-.condition {
-  font-size: 14px;
-  opacity: 0.8;
-}
 
 .details {
   font-size: 13px;
@@ -105,11 +101,265 @@
   opacity: 0.85;
 }
 
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* 하단 채팅창 컨테이너 */
+.footer-input {
+  position: absolute;
+  top: 830px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 390px;
+  max-width: 390px;
+  
+  display: flex;
+  gap: 8px; 
+  align-items: center;
+  
+  padding: 0;
+  margin: 0;
+  z-index: 20;
+}
+
+/* 입력창 래퍼 */
+.input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: 71px;
+  background: #FFFFFF;
+
+  /* 기본 그림자 효과 추가 */
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  
+  /* 부드러운 전환 효과 */
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+/* 텍스트 입력창 */
+.footer-input input {
+  flex: 1;
+  height: 48px;
+  padding: 13px 56px 13px 16px;
+  
+  /* 모양 */
+  border-radius: 71px;
+  border: none;
+  background: transparent;  /* 배경 투명 */
+  
+  /* 텍스트 */
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #091837;
+  line-height: 22px;
+  
+  outline: none;
+  margin: 0;
+}
+
+/* 입력창 placeholder 스타일 */
+.footer-input input::placeholder {
+  color: rgba(9, 24, 55, 0.60);
+  font-weight: 400;
+}
+
+/* 포커스 시 placeholder 사라지는 효과 */
+.footer-input input:focus::placeholder {
+  opacity: 0;
+}
+
+/* 입력창 호버 효과 */
+.input-wrapper:hover {
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.3),
+    0 0 25px rgba(238, 180, 243, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 입력창 포커스 효과 */
+.input-wrapper:focus-within {
+  box-shadow: 
+    0 0 20px rgba(151, 245, 253, 0.4),
+    0 0 30px rgba(238, 180, 243, 0.3),
+    0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* 마이크 버튼 */
+.mic-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 32px;  
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  outline: none;
+  
+}
+
+/* 마이크 버튼 안의 이미지 */
+.mic-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* 마이크 버튼 호버 효과 - 자연스러운 회색 */
+.mic-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mic-button:hover img {
+  opacity: 1;
+}
+
+/* 마이크 버튼 클릭 효과 - 자연스러운 회색 */
+.mic-button:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* 전송 버튼 */
+.send-button {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  padding: 0;
+  margin: 0;
+  
+  position: relative;
+  overflow: hidden;
+  
+  /* 기본 그림자 효과 - 입력창과 동일 */
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    
+  /* 미묘한 그라데이션 애니메이션 */
+  animation: subtleGradientShift 15s ease-in-out infinite;
+
+}
+
+/* 버튼 내부 반짝임 효과 - 오로라 흐름 */
+.send-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(151, 245, 253, 0.4),
+    rgba(238, 180, 243, 0.4),
+    transparent
+  );
+  animation: auroraFlow 4s linear infinite;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* 전송 버튼 안의 아이콘 */
+.send-button img {
+  width: 24px;
+  height: 24px;
+  transform: translate(-1px, 1px);
+  z-index: 10;
+  position: relative;
+}
+
+/* 전송 버튼 호버 효과 - 입력창과 동일 */
+.send-button:hover {
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.3),
+    0 0 25px rgba(238, 180, 243, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* 전송 버튼 클릭 효과 - 입력창과 동일 */
+.send-button:active {
+  box-shadow: 
+    0 0 20px rgba(151, 245, 253, 0.4),
+    0 0 30px rgba(238, 180, 243, 0.3),
+    0 6px 15px rgba(0, 0, 0, 0.12),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 오로라 흐름 애니메이션 */
+@keyframes auroraFlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 미묘한 그라데이션 애니메이션 */
+@keyframes subtleGradientShift {
+  0% {
+    background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  }
+  25% {
+    background: linear-gradient(50deg, #97F5FD 12%, #EEB4F3 88%);
+  }
+  50% {
+    background: linear-gradient(40deg, #97F5FD 19%, #EEB4F3 81%);
+  }
+  75% {
+    background: linear-gradient(52deg, #97F5FD 14%, #EEB4F3 86%);
+  }
+  100% {
+    background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  }
+}
+
+/* 버튼이 비활성화된 경우 */
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 
+    0 0 10px rgba(151, 245, 253, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.send-button:disabled::before {
+  animation: none;
+}
+
+.send-button:disabled:hover {
+  transform: none;
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
 .graph-card {
   background-color: #f8fafc;
   border-radius: 12px;
@@ -122,4 +372,5 @@
   display: block;
   z-index: 2;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  }
 }
