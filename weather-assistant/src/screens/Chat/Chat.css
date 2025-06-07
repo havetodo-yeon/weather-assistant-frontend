@@ -360,17 +360,19 @@
 .send-button:disabled:hover {
   transform: none;
   background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+}
+
 .graph-card {
   background-color: #f8fafc;
   border-radius: 12px;
-  padding: 1rem;
+  padding-left: 8px;
   height: 130px !important;
   min-height: 130px;
   margin-top: 12px;
+  margin-bottom: 12px;
   overflow: visible !important;
   position: relative !important;
   display: block;
   z-index: 2;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  }
 }
