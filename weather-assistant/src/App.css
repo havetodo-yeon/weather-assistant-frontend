@@ -10,6 +10,7 @@ body {
   color: #ffffff;
   background: #000;
   overflow-x: hidden;
+  
 }
 
 /* 메인 앱 래퍼 */
@@ -50,7 +51,7 @@ body {
   flex-direction: column;
   position: relative;
   margin: 0 auto;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 
