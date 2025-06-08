@@ -28,7 +28,7 @@ const Chat = ({
       <div className="chat-screen">
         <div className="messages">
           {messages.map((m, i) => (
-            <div className={`bubble ${m.type}`}>
+            <div key={i} className={`bubble ${m.type}`}>
   {m.text && <div>{m.text}</div>}
   {Array.isArray(m.graph) && m.graph.length > 0 && (
     <div className="graph-card">

@@ -64,9 +64,9 @@ const Home = ({
                     {/* ? `${weather.temp}°C` : `00°C` } </p> */}
           
         {/* 기상 정보 */}
-        <p className="description">
+        <div className="description">
           <WeatherDescriptionWithIcon weather={weather} />
-        </p>
+        </div>
 
         {/* 체감온도/최고/최저 */}
         <p className="sub-summary">
