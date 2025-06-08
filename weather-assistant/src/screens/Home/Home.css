@@ -186,6 +186,7 @@
 
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
   height: 22px;
+  white-space: nowrap;  /* 줄바꿈 방지 */
   
   position: absolute;
   top: 242px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
@@ -689,4 +690,30 @@
 .send-button:disabled:hover {
   transform: none;
   background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+}
+
+
+/* 날씨 description 컨테이너 - 아이콘과 텍스트를 가로로 배치 */
+.weather-description-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 날씨 아이콘 스타일 */
+.weather-icon {
+  width: 16px !important;
+  height: 16px !important;
+  color: #FFFFFF;
+  flex-shrink: 0; /* 아이콘 크기 고정 */
+}
+
+/* 날씨 텍스트 스타일 */
+.weather-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #FFFFFF;
+  line-height: 22px;
 }

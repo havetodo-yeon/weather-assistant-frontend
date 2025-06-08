@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import { WeatherDescriptionWithIcon } from './weatherIconUtils';
 
 const Home = ({ 
   time, 
@@ -14,13 +15,6 @@ const Home = ({
   const today = new Date();
   const formattedDate = formatDate(today); // ex. "May 24, Monday"
 
-    //  날씨 테스트 코드 
-  console.log('=== 날씨 테스트 ===');
-  console.log('weather 객체:', weather);
-  console.log('weatherId:', weather?.weatherId);
-  console.log('description:', weather?.description);
-  console.log('condition:', weather?.condition);
-  console.log('==================');
 
 
   return (
@@ -69,19 +63,17 @@ const Home = ({
           ? `${weather.temp}°` : `00°C` } </p>
                     {/* ? `${weather.temp}°C` : `00°C` } </p> */}
           
-
         {/* 기상 정보 */}
         <p className="description">
-          {weather?.description ? 
-            weather.description.charAt(0).toUpperCase() + weather.description.slice(1).toLowerCase()
-            : 'Loading...'}
+          <WeatherDescriptionWithIcon weather={weather} />
         </p>
-                  {/* 체감온도/최고/최저 */}
-          <p className="sub-summary">
-            {weather ? 
-            `Feels like ${weather.feelsLike}° | H: ${weather.tempMax}° L: ${weather.tempMin}°` 
-            : 'Loading...'}
-           </p>
+
+        {/* 체감온도/최고/최저 */}
+        <p className="sub-summary">
+          {weather ? 
+          `Feels like ${weather.feelsLike}° | H: ${weather.tempMax}° L: ${weather.tempMin}°` 
+          : 'Loading...'}
+        </p>
       </div>
 
       <div className="background-media">
