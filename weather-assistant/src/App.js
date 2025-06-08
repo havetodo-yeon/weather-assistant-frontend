@@ -4,7 +4,6 @@ import Home from './screens/Home/Home';
 import Chat from './screens/Chat/Chat';
 import VoiceInput from './screens/VoiceInput/VoiceInput';
 
-
 function App() {
   const [view, setView] = useState('home');
   const [input, setInput] = useState('');
@@ -13,7 +12,6 @@ function App() {
   const [location, setLocation] = useState('Fetching location...');
   const [coords, setCoords] = useState(null); // 위도/경도 저장용
   const [weather, setWeather] = useState(null); // 날씨 상태 추가
-
 
   useEffect(() => {
     const now = new Date();
@@ -53,16 +51,14 @@ function App() {
         } catch (err) {
           console.error('🌧️ 날씨 정보 오류:', err);
         }
-
-
       },
       () => {
         setLocation('위치 정보 접근 거부됨');
       }
     );
   }, []);
-  
-  // Gemini API 호출 함수 
+
+  // Gemini 호출 + 그래프 통합
   const callGeminiAPI = async (messageText) => {
     try {
       setMessages(prev => [...prev, { type: 'bot', text: '생각하는 중...' }]);
@@ -70,29 +66,50 @@ function App() {
       const res = await fetch('http://localhost:4000/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userInput: messageText,
-          location,
-          coords
-        })
+        body: JSON.stringify({ userInput: messageText, location, coords })
       });
 
       const data = await res.json();
+      const graphCoords = data.resolvedCoords || coords;
+      console.log('📍 resolvedCoords:', graphCoords);
 
+      // 기온 질문 시 그래프 요청
+      let graphData = null;
+      if (
+        (messageText.includes('기온') || messageText.includes('온도')) &&
+        graphCoords && graphCoords.lat && graphCoords.lon
+      ) {
+        const graphRes = await fetch('http://localhost:4000/weather-graph', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            latitude: graphCoords.lat,
+            longitude: graphCoords.lon
+          })
+        });
+        graphData = await graphRes.json();
+      }
+
+      // 응답 추가 (텍스트 + 그래프 통합)
       setMessages(prev => {
         const newMessages = [...prev];
-        newMessages.pop();
-        return [...newMessages, {
-          type: 'bot',
-          text: data.reply || '응답을 이해하지 못했어요.'
-        }];
+        newMessages.pop(); // '생각하는 중...'
+
+        return [
+          ...newMessages,
+          {
+            type: 'bot',
+            text: data.reply || '응답을 이해하지 못했어요.',
+            graph: Array.isArray(graphData?.hourlyTemps) ? graphData.hourlyTemps : null
+          }
+        ];
       });
 
       if (data.error) {
         console.error('API 오류:', data.error);
         setMessages(prev => {
           const newMessages = [...prev];
-          newMessages.pop();
+          newMessages.pop(); // 로딩 메시지 제거
           return [...newMessages, {
             type: 'bot',
             text: `❌ 오류: ${data.error}`
@@ -102,7 +119,7 @@ function App() {
     } catch (error) {
       setMessages(prev => {
         const newMessages = [...prev];
-        newMessages.pop();
+        newMessages.pop(); // 로딩 메시지 제거
         return [...newMessages, {
           type: 'bot',
           text: `❌ ${error.message}`
@@ -115,11 +132,11 @@ function App() {
   const sendMessage = async (messageText, fromInput = false) => {
     const userMsg = { type: 'user', text: messageText };
     setMessages(prev => [...prev, userMsg]);
-    
+
     if (fromInput) {
       setInput(''); // input에서 온 경우에만 초기화
     }
-    
+
     setView('chat');
     await callGeminiAPI(messageText);
   };
@@ -138,7 +155,7 @@ function App() {
   // 음성 입력 기능이 구현되면 수정할 예정
   const handleVoiceInput = () => {
     setView('listening');
-    
+
     setTimeout(() => {
       const userMsg = { type: 'user', text: '목이 아픈데 내일 미세먼지 어때?' };
       setMessages(prev => [...prev, userMsg]);
@@ -176,7 +193,6 @@ function App() {
           weather={weather}
         />
       )}
-
       {view === 'chat' && (
         <Chat 
           messages={messages}
@@ -185,7 +201,6 @@ function App() {
           handleSend={handleSend}
         />
       )}
-
       {view === 'listening' && (
         <VoiceInput setView={setView} />
       )}
