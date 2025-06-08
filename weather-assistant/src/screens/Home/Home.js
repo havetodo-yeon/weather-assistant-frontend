@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import { WeatherDescriptionWithIcon } from './weatherIconUtils';
 
 const Home = ({ 
   time, 
@@ -13,6 +14,8 @@ const Home = ({
 }) => {
   const today = new Date();
   const formattedDate = formatDate(today); // ex. "May 24, Monday"
+
+
 
   return (
     <div className="app-container"> {/* ✅ 공통 정렬용 래퍼 추가 */}
@@ -60,10 +63,10 @@ const Home = ({
           ? `${weather.temp}°` : `00°C` } </p>
                     {/* ? `${weather.temp}°C` : `00°C` } </p> */}
           
-
         {/* 기상 정보 */}
-        <p className="condition">{weather
-          ? `${weather.condition}` : 'Loading...' } </p>
+        <p className="description">
+          <WeatherDescriptionWithIcon weather={weather} />
+        </p>
 
         {/* 체감온도/최고/최저 */}
         <p className="sub-summary">
