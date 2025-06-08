@@ -182,7 +182,7 @@
 
 
 /* 기상 정보 */
-.condition {
+.description {
 
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
   height: 22px;

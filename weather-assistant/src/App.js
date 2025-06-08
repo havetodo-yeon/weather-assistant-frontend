@@ -3,7 +3,7 @@ import './App.css';
 import Home from './screens/Home/Home';
 import Chat from './screens/Chat/Chat';
 import VoiceInput from './screens/VoiceInput/VoiceInput';
-// import { geminiApi } from './services/geminiApi';
+
 
 function App() {
   const [view, setView] = useState('home');
