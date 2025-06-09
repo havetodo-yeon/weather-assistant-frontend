@@ -186,7 +186,6 @@
 
   width: auto; /* 텍스트 길이에 따라 자동 조정 */
   height: 22px;
-  white-space: nowrap;  /* 줄바꿈 방지 */
   
   position: absolute;
   top: 242px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
