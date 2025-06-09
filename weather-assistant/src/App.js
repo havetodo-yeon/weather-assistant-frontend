@@ -58,16 +58,33 @@ function App() {
     );
   }, []);
 
-  // Gemini 호출 + 그래프 통합
+//  뒤로가기 함수 추가
+const handleBackToHome = () => {
+  setView('home');
+  setMessages([]); // 채팅 메시지 초기화
+  setInput('');    // 입력창도 초기화
+};
+// Gemini 호출 + 그래프 통합
   const callGeminiAPI = async (messageText) => {
     try {
-      setMessages(prev => [...prev, { type: 'bot', text: '생각하는 중...' }]);
+      let thinkingShown = false;
+      let thinkingStartTime = null;
+      
+      // 800ms 후에 "Thinking" 메시지 표시
+      const thinkingTimer = setTimeout(() => {
+        setMessages(prev => [...prev, { type: 'bot', text: 'Thinking', isThinking: true }]);
+        thinkingShown = true;
+        thinkingStartTime = Date.now(); // 생각하는 중 시작 시간 기록
+      }, 800);
 
       const res = await fetch('http://localhost:4000/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userInput: messageText, location, coords })
       });
+
+      // API 응답이 빨리 와서 "Thinking"이 표시되기 전이면 타이머 취소
+      clearTimeout(thinkingTimer);
 
       const data = await res.json();
       const graphCoords = data.resolvedCoords || coords;
@@ -90,41 +107,86 @@ function App() {
         graphData = await graphRes.json();
       }
 
-      // 응답 추가 (텍스트 + 그래프 통합)
-      setMessages(prev => {
-        const newMessages = [...prev];
-        newMessages.pop(); // '생각하는 중...'
-
-        return [
-          ...newMessages,
-          {
-            type: 'bot',
-            text: data.reply || '응답을 이해하지 못했어요.',
-            graph: Array.isArray(graphData?.hourlyTemps) ? graphData.hourlyTemps : null
+      // "Thinking"이 표시되었다면 최소 1초 대기 후 응답 표시
+      const processResponse = () => {
+        setMessages(prev => {
+          const newMessages = [...prev];
+          
+          // "Thinking"이 표시되었으면 제거
+          if (thinkingShown && newMessages[newMessages.length - 1]?.isThinking) {
+            newMessages.pop();
           }
-        ];
-      });
+
+          return [
+            ...newMessages,
+            {
+              type: 'bot',
+              text: data.reply || '응답을 이해하지 못했어요.',
+              graph: Array.isArray(graphData?.hourlyTemps) ? graphData.hourlyTemps : null
+            }
+          ];
+        });
+      };
+
+      if (thinkingShown && thinkingStartTime) {
+        // "Thinking"이 표시된 경우, 최소 1초 경과 후 응답 표시
+        const elapsed = Date.now() - thinkingStartTime;
+        const minDisplayTime =1000; // 1초
+        const remainingTime = Math.max(0, minDisplayTime - elapsed);
+        
+        setTimeout(processResponse, remainingTime);
+      } else {
+        // "Thinking"이 표시되지 않은 경우 즉시 응답
+        processResponse();
+      }
 
       if (data.error) {
         console.error('API 오류:', data.error);
-        setMessages(prev => {
-          const newMessages = [...prev];
-          newMessages.pop(); // 로딩 메시지 제거
-          return [...newMessages, {
-            type: 'bot',
-            text: `❌ 오류: ${data.error}`
-          }];
-        });
+        
+        const processError = () => {
+          setMessages(prev => {
+            const newMessages = [...prev];
+            
+            // "Thinking"이 표시되었으면 제거
+            if (thinkingShown && newMessages[newMessages.length - 1]?.isThinking) {
+              newMessages.pop();
+            }
+            
+            return [...newMessages, {
+              type: 'bot',
+              text: `❌ 오류: ${data.error}`
+            }];
+          });
+        };
+
+        if (thinkingShown && thinkingStartTime) {
+          const elapsed = Date.now() - thinkingStartTime;
+          const minDisplayTime = 1000;
+          const remainingTime = Math.max(0, minDisplayTime - elapsed);
+          setTimeout(processError, remainingTime);
+        } else {
+          processError();
+        }
       }
     } catch (error) {
-      setMessages(prev => {
-        const newMessages = [...prev];
-        newMessages.pop(); // 로딩 메시지 제거
-        return [...newMessages, {
-          type: 'bot',
-          text: `❌ ${error.message}`
-        }];
-      });
+      const processErrorCatch = () => {
+        setMessages(prev => {
+          const newMessages = [...prev];
+          
+          // "Thinking"이 표시되었으면 제거 (에러 시에도 동일)
+          if (newMessages[newMessages.length - 1]?.isThinking) {
+            newMessages.pop();
+          }
+          
+          return [...newMessages, {
+            type: 'bot',
+            text: `❌ ${error.message}`
+          }];
+        });
+      };
+
+      // catch 블록에서는 thinkingStartTime을 확인할 수 없으므로 즉시 처리
+      processErrorCatch();
     }
   };
 
@@ -199,6 +261,7 @@ function App() {
           input={input}
           setInput={setInput}
           handleSend={handleSend}
+          onBackToHome={handleBackToHome} // 뒤로가기 함수 전달
         />
       )}
       {view === 'listening' && (
@@ -207,5 +270,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
