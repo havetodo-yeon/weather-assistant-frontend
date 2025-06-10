@@ -72,6 +72,12 @@ const VoiceInput = ({ setView, onVoiceResult }) => {
         <button className="back-button" onClick={() => setView('home')}>
           홈으로
         </button>
+        {/* 에러/미인식 상태에서만 '다시 시도' 버튼 노출 */}
+        {status === 'error' && (
+          <button className="back-button" style={{ marginTop: 8 }} onClick={handleRetry}>
+            다시 시도
+          </button>
+        )}
       </div>
     </div>
   );
