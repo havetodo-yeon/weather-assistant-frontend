@@ -214,7 +214,7 @@ const handleBackToHome = () => {
     await sendMessage(text, false);
   };
 
-  // 음성 입력 기능이 구현되면 수정할 예정
+  // 음성 입력 기능이 구현
   const handleVoiceInput = () => {
     setView('listening');
   };
@@ -240,10 +240,17 @@ const handleBackToHome = () => {
           setInput={setInput}
           handleSend={handleSend}
           onBackToHome={handleBackToHome} // 뒤로가기 함수 전달
+          handleVoiceInput={handleVoiceInput}
         />
       )}
       {view === 'listening' && (
-        <VoiceInput setView={setView} />
+        <VoiceInput
+          setView={setView}
+          onResult={async (text) => {
+            // 음성 인식 결과를 바로 전송
+            await sendMessage(text, false);
+          }}
+        />
       )}
     </div>
   );
