@@ -217,28 +217,6 @@ const handleBackToHome = () => {
   // 음성 입력 기능이 구현되면 수정할 예정
   const handleVoiceInput = () => {
     setView('listening');
-
-    setTimeout(() => {
-      const userMsg = { type: 'user', text: '목이 아픈데 내일 미세먼지 어때?' };
-      setMessages(prev => [...prev, userMsg]);
-      setView('chat');
-
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: (
-            <>
-              <strong>내일 서울시 미세먼지 농도는 '나쁨' 수준으로 예상돼요.</strong> 목이 아프신 상태라면 꼭 KF94 마스크를 착용하고, 실내 공기질 관리도 신경 써주세요. 무리한 외출은 피하는 게 좋겠어요 😷
-            </>
-          ),
-          dust: {
-            level: '나쁨',
-            value: '82 µg/m³',
-            color: '#f97316',
-          }
-        }]);
-      }, 1000);
-    }, 2000);
   };
 
   return (

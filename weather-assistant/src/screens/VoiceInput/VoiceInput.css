@@ -1,36 +1,130 @@
-.listening-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120px;
-  gap: 24px;
+/* ========== VoiceInput 전용 배경 비디오 스타일 ========== */
+.voice-magic-orb {
+  width: 320px;                 /* VoiceInput용 최종 크기 */
+  height: 320px;                /* VoiceInput용 최종 크기 */
+  position: absolute;
+  top: 290px;                   /* 홈화면과 동일한 위치 유지 */
+  left: 50%;                    /* 화면 중앙에서 시작 */
+  transform: translateX(-50%);  /* 자기 크기의 절반만큼 왼쪽으로 이동 */
+  transform-origin: center center; /* 중심에서 확대되도록 설정 */
+  pointer-events: none;         /* 사용자 클릭 방지 */
+  z-index: 0;                   /* 텍스트 아래, UI 요소 위에 배치 */
+  
+  /* 버블처럼 자연스럽게 커지는 애니메이션 */
+  animation: bubbleGrow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.listening-text {
-  font-size: 18px;
+/* 270px에서 320px로 버블처럼 커지는 애니메이션 */
+@keyframes bubbleGrow {
+  0% {
+    transform: translateX(-50%) scale(0.844); /* 270px/320px = 0.844 */
+  }
+  100% {
+    transform: translateX(-50%) scale(1);     /* 320px 최종 크기 */
+  }
+}
+
+/* ========== 헤더 스타일 (Chat.css에서 가져옴) ========== */
+.weather-header {
+  width: 100%;
+  height: 56px;
+  position: absolute;
+  top: 59px; /* 상태바 밑에 */
+  
+  background: transparent;
+  
+  display: flex;    /* 자식들을 가로로 나란히 배치 */
+  justify-content: space-between;  /* 첫째는 왼쪽, 셋째는 오른쪽, 둘째는 가운데 */
+  align-items: center;   /* 모든 자식을 세로 중앙 정렬 */
+  padding: 0 20px;
+  z-index: 10;
+}
+
+/* 왼쪽 뒤로가기 버튼 */
+.header-back-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 뒤로가기 버튼 호버 효과 */
+.header-back-btn:hover {
+  transform: scale(1.05);
   opacity: 0.8;
 }
 
+/* 뒤로가기 버튼 클릭 효과 */
+.header-back-btn:active {
+  transform: scale(0.95);
+}
+
+/* 아이콘 크기 */
+.back-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 중앙 공간 - 빈 공간으로 유지 */
+.header-spacer {
+  flex: 1;
+}
+
+/* 오른쪽 플레이스홀더 */
+.header-icon-placeholder {
+  width: 24px;   /* 버튼과 같은 너비 */
+  height: 24px;  /* 버튼과 같은 높이 */
+  visibility: hidden; /* 공간은 차지하지만 보이지 않음 */
+}
+
+.listening-text {
+  position: absolute;
+  top: 255px;                   /* 헤더 아래 적당한 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  font-size: 22px;              
+  font-weight: 400;                           
+  color: #ffffff;
+  text-align: center;
+  z-index: 10;
+  
+  /* 위치 조정: top 값만 변경하면 됨 */
+}
 .mic-pulse {
-  width: 80px;
-  height: 80px;
+  width: 95px;                  /* 90px → 95px로 조정 */
+  height: 95px;                 /* 90px → 95px로 조정 */
   border-radius: 50%;
   background: radial-gradient(circle, #f0a9ff, #643fe6);
   animation: pulse 1.2s infinite ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 38px;              /* 36px → 38px로 조정 */
+  z-index: 10;
+  margin-top: 70px;             /* 320px 크기에 맞게 조정 */
+  
+  /* 더 강한 그림자 효과 */
+  box-shadow: 
+    0 8px 24px rgba(240, 169, 255, 0.3),
+    0 4px 12px rgba(100, 63, 230, 0.2);
 }
 
 .back-button {
-  padding: 10px 16px;
+  padding: 12px 20px;           
   border-radius: 16px;
   border: none;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15); 
   color: white;
   cursor: pointer;
   transition: all 0.2s ease;
+  z-index: 10;
+  font-size: 16px;              
+  font-weight: 500;             
+  margin-top: 20px;             
 }
 
 .back-button:hover {
