@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Chat.css';
-import WeatherLineChart from './WeatherLineChart'; // 경로는 파일 위치에 따라 조절
+import WeatherLineChart from './WeatherLineChart';
+import DustLevelChart from './DustLevelChart';
 
 const Chat = ({ 
   messages, 
@@ -145,6 +146,11 @@ const Chat = ({
                       ) : (
                         // 일반 메시지
                         m.text
+                      )}
+                      
+                      {/* 👇 미세먼지 시각화 그래프 삽입 */}
+                      {m.dust && typeof m.dust.value === 'number' && (
+                        <DustLevelChart value={m.dust.value} />
                       )}
                     </div>
                   )}
