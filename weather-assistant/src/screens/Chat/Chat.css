@@ -124,16 +124,9 @@
   padding: 0;
 }
 
-/* 사용자 라벨 - 오른쪽 정렬 */
-.message-container.user .message-label {
-  color: #FFFFFF;
-  font-weight: 500;
-  text-align: right;
-  margin-right: 0; /* 말풍선과 같은 위치 */
-}
 .message-container.user .message-label {
   display: none;
-} /* me는 숨기기로 변경 */ 
+} /* 사용자 me는 숨기기로 변경 */ 
 
 /* 챗봇 라벨 - 왼쪽 정렬 */
 .message-container.bot .message-label {
