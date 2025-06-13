@@ -26,7 +26,7 @@ const DustLevelChart = ({ value }) => {
       <div className="dust-air-header">
         <div className="title-row">
           <div className="title-left">
-            <p className="title">Tomorrow's Air Quality</p>
+            <p className="title">Today's Air Quality</p>
             <div className="subtitle-left">
               <p className="subtitle">PM2.5 Standard</p>
               <span 
