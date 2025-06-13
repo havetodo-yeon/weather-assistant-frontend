@@ -90,6 +90,44 @@ const handleBackToHome = () => {
       const graphCoords = data.resolvedCoords || coords;
       console.log('📍 resolvedCoords:', graphCoords);
 
+      // 미세먼지 정보가 포함되어 있으면 추가 메시지 구성
+      if (data.airQuality && data.airQuality.pm25 !== undefined) {
+        const { pm25 } = data.airQuality;
+
+        const getAirLevel = (value) => {
+          if (value <= 15) return '좋음';
+          if (value <= 35) return '보통';
+          if (value <= 75) return '나쁨';
+          return '매우 나쁨';
+        };
+
+        const getAirColor = (value) => {
+          if (value <= 15) return '#22c55e';   // green
+          if (value <= 35) return '#facc15';   // yellow
+          if (value <= 75) return '#f97316';   // orange
+          return '#ef4444';                    // red
+        };
+
+        const dustInfo = {
+          value: pm25,
+          level: getAirLevel(pm25),
+          color: getAirColor(pm25)
+        };
+
+        // '생각 중...' 메시지 제거 후 응답 메시지 + dust 정보 반영
+        setMessages(prev => {
+          const newMessages = [...prev];
+          newMessages.pop(); // 로딩 제거
+          return [...newMessages, {
+            type: 'bot',
+            text: data.reply,
+            dust: dustInfo
+          }];
+        });
+
+        return; // 미세먼지 응답이면 여기서 종료
+      }
+
       // 기온 질문 시 그래프 요청
       let graphData = null;
       if (
@@ -214,31 +252,9 @@ const handleBackToHome = () => {
     await sendMessage(text, false);
   };
 
-  // 음성 입력 기능이 구현되면 수정할 예정
+  // 음성 입력 기능이 구현
   const handleVoiceInput = () => {
     setView('listening');
-
-    setTimeout(() => {
-      const userMsg = { type: 'user', text: '목이 아픈데 내일 미세먼지 어때?' };
-      setMessages(prev => [...prev, userMsg]);
-      setView('chat');
-
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: (
-            <>
-              <strong>내일 서울시 미세먼지 농도는 '나쁨' 수준으로 예상돼요.</strong> 목이 아프신 상태라면 꼭 KF94 마스크를 착용하고, 실내 공기질 관리도 신경 써주세요. 무리한 외출은 피하는 게 좋겠어요 😷
-            </>
-          ),
-          dust: {
-            level: '나쁨',
-            value: '82 µg/m³',
-            color: '#f97316',
-          }
-        }]);
-      }, 1000);
-    }, 2000);
   };
 
   return (
@@ -262,10 +278,17 @@ const handleBackToHome = () => {
           setInput={setInput}
           handleSend={handleSend}
           onBackToHome={handleBackToHome} // 뒤로가기 함수 전달
+          handleVoiceInput={handleVoiceInput}
         />
       )}
       {view === 'listening' && (
-        <VoiceInput setView={setView} />
+        <VoiceInput
+          setView={setView}
+          onResult={async (text) => {
+            // 음성 인식 결과를 바로 전송
+            await sendMessage(text, false);
+          }}
+        />
       )}
     </div>
   );
