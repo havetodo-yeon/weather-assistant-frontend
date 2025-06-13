@@ -1,46 +1,43 @@
 /* ========== VoiceInput 전용 배경 비디오 스타일 ========== */
 .voice-magic-orb {
-  width: 320px;                 /* VoiceInput용 최종 크기 */
-  height: 320px;                /* VoiceInput용 최종 크기 */
+  width: 320px;                
+  height: 320px;               
   position: absolute;
-  top: 290px;                   /* 홈화면과 동일한 위치 유지 */
-  left: 50%;                    /* 화면 중앙에서 시작 */
-  transform: translateX(-50%);  /* 자기 크기의 절반만큼 왼쪽으로 이동 */
-  transform-origin: center center; /* 중심에서 확대되도록 설정 */
-  pointer-events: none;         /* 사용자 클릭 방지 */
-  z-index: 0;                   /* 텍스트 아래, UI 요소 위에 배치 */
+  top: 210px;                  
+  left: 50%;                   
+  transform: translateX(-50%); 
+  transform-origin: center center;
+  pointer-events: none;        
+  z-index: 0;                  
   
-  /* 버블처럼 자연스럽게 커지는 애니메이션 */
   animation: bubbleGrow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* 270px에서 320px로 버블처럼 커지는 애니메이션 */
 @keyframes bubbleGrow {
   0% {
-    transform: translateX(-50%) scale(0.844); /* 270px/320px = 0.844 */
+    transform: translateX(-50%) scale(0.844);
   }
   100% {
-    transform: translateX(-50%) scale(1);     /* 320px 최종 크기 */
+    transform: translateX(-50%) scale(1);    
   }
 }
 
-/* ========== 헤더 스타일 (Chat.css에서 가져옴) ========== */
+/* ========== 헤더 스타일 ========== */
 .weather-header {
   width: 100%;
   height: 56px;
   position: absolute;
-  top: 59px; /* 상태바 밑에 */
+  top: 59px;
   
   background: transparent;
   
-  display: flex;    /* 자식들을 가로로 나란히 배치 */
-  justify-content: space-between;  /* 첫째는 왼쪽, 셋째는 오른쪽, 둘째는 가운데 */
-  align-items: center;   /* 모든 자식을 세로 중앙 정렬 */
+  display: flex;   
+  justify-content: space-between; 
+  align-items: center;  
   padding: 0 20px;
   z-index: 10;
 }
 
-/* 왼쪽 뒤로가기 버튼 */
 .header-back-btn {
   background: transparent !important;
   border: none !important;
@@ -51,89 +48,235 @@
   justify-content: center;
 }
 
-/* 뒤로가기 버튼 호버 효과 */
 .header-back-btn:hover {
   transform: scale(1.05);
   opacity: 0.8;
 }
 
-/* 뒤로가기 버튼 클릭 효과 */
 .header-back-btn:active {
   transform: scale(0.95);
 }
 
-/* 아이콘 크기 */
 .back-icon {
   width: 24px;
   height: 24px;
+  filter: brightness(0) invert(1);
 }
 
-/* 중앙 공간 - 빈 공간으로 유지 */
 .header-spacer {
   flex: 1;
 }
 
-/* 오른쪽 플레이스홀더 */
 .header-icon-placeholder {
-  width: 24px;   /* 버튼과 같은 너비 */
-  height: 24px;  /* 버튼과 같은 높이 */
-  visibility: hidden; /* 공간은 차지하지만 보이지 않음 */
+  width: 24px;  
+  height: 24px; 
+  visibility: hidden;
 }
 
+/* ========== 듣고 있어요 텍스트 + 3도트 애니메이션 ========== */
 .listening-text {
   position: absolute;
-  top: 255px;                   /* 헤더 아래 적당한 위치 */
+  top: 180px;                   
+  left: 50%;
+  transform: translateX(-50%); 
+
+  white-space: nowrap;          
+  width: auto;                  
+  
+  font-size: 22px;              
+  font-weight: 600;
+  text-align: center;
+  z-index: 10;
+  
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  animation: fadeInText 0.3s ease-in-out;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.listening-text::after {
+  content: '';
+  animation: dotsAnimation 1.2s infinite;
+}
+
+@keyframes dotsAnimation {
+  0%, 20% { 
+    content: ''; 
+  }
+  30% { 
+    content: '.'; 
+  }
+  50% { 
+    content: '..'; 
+  }
+  70%, 100% { 
+    content: '...'; 
+  }
+}
+
+/* ========== 에러 메시지 텍스트 ========== */
+.error-text {
+  position: absolute;
+  top: 180px;                   
   left: 50%;
   transform: translateX(-50%);
   
   font-size: 22px;              
-  font-weight: 400;                           
-  color: #ffffff;
+  font-weight: 600;
   text-align: center;
   z-index: 10;
   
-  /* 위치 조정: top 값만 변경하면 됨 */
-}
-.mic-pulse {
-  width: 95px;                  /* 90px → 95px로 조정 */
-  height: 95px;                 /* 90px → 95px로 조정 */
-  border-radius: 50%;
-  background: radial-gradient(circle, #f0a9ff, #643fe6);
-  animation: pulse 1.2s infinite ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 38px;              /* 36px → 38px로 조정 */
-  z-index: 10;
-  margin-top: 70px;             /* 320px 크기에 맞게 조정 */
+  white-space: nowrap;          
+  width: auto;                  
   
-  /* 더 강한 그림자 효과 */
-  box-shadow: 
-    0 8px 24px rgba(240, 169, 255, 0.3),
-    0 4px 12px rgba(100, 63, 230, 0.2);
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  animation: fadeInText 0.3s ease-in-out;
 }
 
-.back-button {
-  padding: 12px 20px;           
-  border-radius: 16px;
-  border: none;
-  background: rgba(255, 255, 255, 0.15); 
-  color: white;
-  cursor: pointer;
-  transition: all 0.2s ease;
+/* ========== 새로 추가되는 스타일들 ========== */
+.voice-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 5;
+  padding: 20px;
+  pointer-events: none;
+}
+
+/* ========== 개선된 음성 인식 텍스트 스타일 ========== */
+.voice-partial-text {
+  position: absolute;
+  bottom: 254px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32px;
+  color: #ffffff;
+  text-align: center;
   z-index: 10;
-  font-size: 16px;              
-  font-weight: 500;             
-  margin-top: 20px;             
+  width: calc(100vw - 160px);  /* 양쪽 80px씩 = 160px */
+  max-width: 270px;            /* 원형 영상과 동일한 270px */
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  pointer-events: none;
+  
+  /* 부드러운 등장 애니메이션 */
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  animation: voiceFadeIn 0.4s ease-out forwards;
+  
+  /* 텍스트가 길어져도 자연스럽게 확장 */
+  min-height: 1.4em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  
+  /* 텍스트 오버플로우 처리 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
-.back-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+/* 개선된 각 글자별 애니메이션 */
+.voice-partial-text .char {
+  opacity: 0;
+  display: inline-block;
+  animation: improvedCharAnimation 0.6s ease-out forwards;
+  
+  /* 하드웨어 가속 적용 */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
+.voice-partial-text .char.space {
+  width: 0.3em;
 }
+
+/* 더 부드러운 글자 애니메이션 */
+@keyframes improvedCharAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+    filter: blur(1px);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateY(-2px) scale(1.02);
+    filter: blur(0px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(1px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* 컨테이너 등장 애니메이션 개선 */
+@keyframes voiceFadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(-50%) translateY(15px) scale(0.98); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0) scale(1); 
+  }
+}
+
+/* 텍스트가 변경될 때 부드러운 전환 효과 */
+.voice-partial-text.updating .char {
+  animation: updateChar 0.3s ease-in-out forwards;
+}
+
+@keyframes updateChar {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(-5px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 성능 최적화 - GPU 가속 */
+.voice-partial-text,
+.voice-partial-text .char {
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
