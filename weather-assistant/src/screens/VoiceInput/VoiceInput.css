@@ -1,45 +1,282 @@
-.listening-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120px;
-  gap: 24px;
+/* ========== VoiceInput 전용 배경 비디오 스타일 ========== */
+.voice-magic-orb {
+  width: 320px;                
+  height: 320px;               
+  position: absolute;
+  top: 210px;                  
+  left: 50%;                   
+  transform: translateX(-50%); 
+  transform-origin: center center;
+  pointer-events: none;        
+  z-index: 0;                  
+  
+  animation: bubbleGrow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.listening-text {
-  font-size: 18px;
-  opacity: 0.8;
+@keyframes bubbleGrow {
+  0% {
+    transform: translateX(-50%) scale(0.844);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);    
+  }
 }
 
-.mic-pulse {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #f0a9ff, #643fe6);
-  animation: pulse 1.2s infinite ease-in-out;
+/* ========== 헤더 스타일 ========== */
+.weather-header {
+  width: 100%;
+  height: 56px;
+  position: absolute;
+  top: 59px;
+  
+  background: transparent;
+  
+  display: flex;   
+  justify-content: space-between; 
+  align-items: center;  
+  padding: 0 20px;
+  z-index: 10;
+}
+
+.header-back-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.header-back-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.header-back-btn:active {
+  transform: scale(0.95);
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.header-spacer {
+  flex: 1;
+}
+
+.header-icon-placeholder {
+  width: 24px;  
+  height: 24px; 
+  visibility: hidden;
+}
+
+/* ========== 듣고 있어요 텍스트 + 3도트 애니메이션 ========== */
+.listening-text {
+  position: absolute;
+  top: 180px;                   
+  left: 50%;
+  transform: translateX(-50%); 
+
+  white-space: nowrap;          
+  width: auto;                  
+  
+  font-size: 22px;              
+  font-weight: 600;
+  text-align: center;
+  z-index: 10;
+  
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  animation: fadeInText 0.3s ease-in-out;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.listening-text::after {
+  content: '';
+  animation: dotsAnimation 1.2s infinite;
+}
+
+@keyframes dotsAnimation {
+  0%, 20% { 
+    content: ''; 
+  }
+  30% { 
+    content: '.'; 
+  }
+  50% { 
+    content: '..'; 
+  }
+  70%, 100% { 
+    content: '...'; 
+  }
+}
+
+/* ========== 에러 메시지 텍스트 ========== */
+.error-text {
+  position: absolute;
+  top: 180px;                   
+  left: 50%;
+  transform: translateX(-50%);
+  
+  font-size: 22px;              
+  font-weight: 600;
+  text-align: center;
+  z-index: 10;
+  
+  white-space: nowrap;          
+  width: auto;                  
+  
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  animation: fadeInText 0.3s ease-in-out;
+}
+
+/* ========== 새로 추가되는 스타일들 ========== */
+.voice-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 5;
+  padding: 20px;
+  pointer-events: none;
+}
+
+/* ========== 개선된 음성 인식 텍스트 스타일 ========== */
+.voice-partial-text {
+  position: absolute;
+  bottom: 254px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 32px;
+  color: #ffffff;
+  text-align: center;
+  z-index: 10;
+  width: calc(100vw - 160px);  /* 양쪽 80px씩 = 160px */
+  max-width: 270px;            /* 원형 영상과 동일한 270px */
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  pointer-events: none;
+  
+  /* 부드러운 등장 애니메이션 */
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  animation: voiceFadeIn 0.4s ease-out forwards;
+  
+  /* 텍스트가 길어져도 자연스럽게 확장 */
+  min-height: 1.4em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  
+  /* 텍스트 오버플로우 처리 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
-.back-button {
-  padding: 10px 16px;
-  border-radius: 16px;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  cursor: pointer;
-  transition: all 0.2s ease;
+/* 개선된 각 글자별 애니메이션 */
+.voice-partial-text .char {
+  opacity: 0;
+  display: inline-block;
+  animation: improvedCharAnimation 0.6s ease-out forwards;
+  
+  /* 하드웨어 가속 적용 */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
-.back-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+.voice-partial-text .char.space {
+  width: 0.3em;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
+/* 더 부드러운 글자 애니메이션 */
+@keyframes improvedCharAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+    filter: blur(1px);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateY(-2px) scale(1.02);
+    filter: blur(0px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(1px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
 }
+
+/* 컨테이너 등장 애니메이션 개선 */
+@keyframes voiceFadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(-50%) translateY(15px) scale(0.98); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0) scale(1); 
+  }
+}
+
+/* 텍스트가 변경될 때 부드러운 전환 효과 */
+.voice-partial-text.updating .char {
+  animation: updateChar 0.3s ease-in-out forwards;
+}
+
+@keyframes updateChar {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(-5px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 성능 최적화 - GPU 가속 */
+.voice-partial-text,
+.voice-partial-text .char {
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
