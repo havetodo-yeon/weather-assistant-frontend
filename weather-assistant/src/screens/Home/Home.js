@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { WeatherDescriptionWithIcon } from './weatherIconUtils';
 
@@ -15,7 +15,62 @@ const Home = ({
   const today = new Date();
   const formattedDate = formatDate(today); // ex. "May 24, Monday"
 
+  // 기본 FAQ 데이터
+  const defaultFaqItems = [
+    "What's the weather like today?",
+    "How's the air quality today?", 
+    "Do I need an umbrella today?",
+    "What should I wear today?"
+  ];
 
+  // FAQ 편집 상태 관리 - 로컬 스토리지에서 불러오기
+  const [faqItems, setFaqItems] = useState(() => {
+    try {
+      const savedFaqItems = localStorage.getItem('lumeeFaqItems');
+      return savedFaqItems ? JSON.parse(savedFaqItems) : defaultFaqItems;
+    } catch (error) {
+      console.error('FAQ 데이터 로드 실패:', error);
+      return defaultFaqItems;
+    }
+  });
+  
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editText, setEditText] = useState("");
+
+  // FAQ 데이터가 변경될 때마다 로컬 스토리지에 저장
+  useEffect(() => {
+    try {
+      localStorage.setItem('lumeeFaqItems', JSON.stringify(faqItems));
+    } catch (error) {
+      console.error('FAQ 데이터 저장 실패:', error);
+    }
+  }, [faqItems]);
+
+  // FAQ 편집 시작
+  const startEditing = (index) => {
+    setEditingIndex(index);
+    setEditText(faqItems[index]);
+  };
+
+  // FAQ 편집 저장
+  const saveEdit = () => {
+    if (editText.trim() === '') {
+      alert('FAQ 내용을 입력해주세요!');
+      return;
+    }
+    
+    const newFaqItems = [...faqItems];
+    newFaqItems[editingIndex] = editText.trim();
+    setFaqItems(newFaqItems);
+    setEditingIndex(null);
+    setEditText("");
+  };
+
+  // FAQ 편집 취소
+  const cancelEdit = () => {
+    setEditingIndex(null);
+    setEditText("");
+  };
 
   return (
     <div className="app-container"> {/* ✅ 공통 정렬용 래퍼 추가 */}
@@ -108,85 +163,56 @@ const Home = ({
       {/* FAQ 버튼 섹션 */}
       <div className="faq-section">
         <div className="FAQ-buttons">
-          <div className="FAQ-card">
-            <button 
-              className="FAQ-button"
-              onClick={() => sendFromFAQ("What's the weather like today?")}
-            >
-              What's the weather like today?
-            </button>
-            <button 
-              className="FAQ-edit-btn"
-              onClick={() => console.log("Edit FAQ 1")}
-              aria-label="FAQ 수정"
-            >
-              <img 
-                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
-                alt="수정"
-                className="edit-icon"
-              />
-            </button>
-          </div>
-
-          <div className="FAQ-card">
-            <button 
-              className="FAQ-button"
-              onClick={() => sendFromFAQ("How's the air quality today?")}
-            >
-              How's the air quality today?
-            </button>
-            <button 
-              className="FAQ-edit-btn"
-              onClick={() => console.log("Edit FAQ 2")}
-              aria-label="FAQ 수정"
-            >
-              <img 
-                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
-                alt="수정"
-                className="edit-icon"
-              />
-            </button>
-          </div>
-
-          <div className="FAQ-card">
-            <button 
-              className="FAQ-button"
-              onClick={() => sendFromFAQ("Do I need an umbrella today?")}
-            >
-              Do I need an umbrella today?
-            </button>
-            <button 
-              className="FAQ-edit-btn"
-              onClick={() => console.log("Edit FAQ 3")}
-              aria-label="FAQ 수정"
-            >
-              <img 
-                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
-                alt="수정"
-                className="edit-icon"
-              />
-            </button>
-          </div>
-
-          <div className="FAQ-card">
-            <button 
-              className="FAQ-button"
-              onClick={() => sendFromFAQ("What should I wear today?")}
-            >
-              What should I wear today?
-            </button>
-            <button 
-              className="FAQ-edit-btn"
-              onClick={() => console.log("Edit FAQ 4")}
-              aria-label="FAQ 수정"
-            >
-              <img 
-                src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
-                alt="수정"
-                className="edit-icon"
-              />
-            </button>
-          </div>
+          {faqItems.map((faqText, index) => (
+            <div key={index} className="FAQ-card">
+              {editingIndex === index ? (
+                // 편집 모드
+                <div className="FAQ-edit-mode">
+                  <textarea
+                    className="FAQ-edit-input"
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
+                    autoFocus
+                  />
+                  <div className="FAQ-edit-buttons">
+                    <button 
+                      className="FAQ-save-btn"
+                      onClick={saveEdit}
+                    >
+                      Save
+                    </button>
+                    <button 
+                      className="FAQ-cancel-btn"
+                      onClick={cancelEdit}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                // 일반 모드
+                <>
+                  <button 
+                    className="FAQ-button"
+                    onClick={() => sendFromFAQ(faqText)}
+                  >
+                    <span className="FAQ-button-text">{faqText}</span>
+                  </button>
+                  <button 
+                    className="FAQ-edit-btn"
+                    onClick={() => startEditing(index)}
+                    aria-label="FAQ 수정"
+                  >
+                    <img 
+                      src={`${process.env.PUBLIC_URL}/assets/icons/edit.svg`}
+                      alt="수정"
+                      className="edit-icon"
+                    />
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
