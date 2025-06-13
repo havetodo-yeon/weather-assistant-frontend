@@ -17,6 +17,10 @@ function App() {
   const abortControllerRef = useRef(null);
   const thinkingTimerRef = useRef(null);
 
+  // 현재 화면을 추적하기 위한 state 추가 (App.js 상단에)
+  const [previousView, setPreviousView] = useState('home');
+  
+
   useEffect(() => {
     const now = new Date();
     const h = now.getHours().toString().padStart(2, '0');
@@ -320,6 +324,7 @@ function App() {
   };
 
   const handleVoiceInput = () => {
+    setPreviousView(view); // 현재 화면을 이전 화면으로 저장
     setView('listening');
   };
 
@@ -359,13 +364,21 @@ function App() {
           handleVoiceInput={handleVoiceInput}
         />
       )}
+ 
+
       {view === 'listening' && (
         <VoiceInput
           setView={setView}
+          previousView={previousView} // 이전 화면 정보 전달
           onResult={async (text) => {
-            setTimeout(async () => {
+            console.log('🎤 음성 결과 받음:', text);
+            
+            // 즉시 메시지 전송 (지연 없음)
+            try {
               await sendMessage(text, false);
-            }, 1000);
+            } catch (error) {
+              console.error('메시지 전송 실패:', error);
+            }
           }}
         />
       )}
