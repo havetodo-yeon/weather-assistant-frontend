@@ -118,7 +118,7 @@ function App() {
       const res = await fetch('http://localhost:4000/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userInput: messageText, location, coords }),
+        body: JSON.stringify({ userInput: messageText, location, coords, uid: 'testUser1' }),
         signal // AbortController 신호 추가
       });
 
