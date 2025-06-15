@@ -20,6 +20,60 @@ const VoiceInput = ({ setView, previousView, onResult }) => {
 
   const MAX_RETRIES = 2;
 
+  // ===== 마법 구슬 관련 추가 =====
+  const orbOptions = [
+    {
+      id: 'default',
+      videoSrc: {
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748854350/LumeeMagicOrb_Safari_rdmthi.mov",
+        webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748852283/LumeeMagicOrb_WEBM_tfqoa4.webm"
+      }
+    },
+    {
+      id: 'dust',
+      videoSrc: {
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Safari_tkyral.mov",
+        webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Chrome_filwol.webm"
+      }
+    },
+    {
+      id: 'rain',
+      videoSrc: {
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Safari_tkyral.mov",
+        webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749984445/rainLumee_WEBM_xblf7o.webm"
+      }
+    }
+  ];
+
+  // 현재 선택된 구슬 상태 (로컬 스토리지에서 불러오기)
+  const [selectedOrb, setSelectedOrb] = useState(() => {
+    try {
+      const savedOrb = localStorage.getItem('lumeeSelectedOrb');
+      return savedOrb || 'default';
+    } catch (error) {
+      console.error('구슬 설정 로드 실패:', error);
+      return 'default';
+    }
+  });
+
+  // 현재 선택된 구슬 정보 가져오기
+  const getCurrentOrb = () => {
+    return orbOptions.find(orb => orb.id === selectedOrb) || orbOptions[0];
+  };
+
+  // 로컬 스토리지 변경 감지 (다른 창에서 구슬 선택이 바뀔 때)
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'lumeeSelectedOrb' && e.newValue) {
+        setSelectedOrb(e.newValue);
+        console.log('🎵 구슬 선택 변경됨:', e.newValue);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   // 최신 값들을 ref에 저장
   useEffect(() => {
     onResultRef.current = onResult;
@@ -330,26 +384,28 @@ const VoiceInput = ({ setView, previousView, onResult }) => {
   }, [setView]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleBackToHome = () => {
-  console.log('🎤 뒤로가기 - 음성인식 중단');
-  
-  // 결과 전송 타이머 취소
-  if (resultTimerRef.current) {
-    clearTimeout(resultTimerRef.current);
-    resultTimerRef.current = null;
-    console.log('🎤 결과 전송 타이머 취소됨 (뒤로가기)');
-  }
-  
-  if (recognitionRef.current) {
-    try {
-      recognitionRef.current.abort();
-    } catch (e) {
-      console.log('🎤 음성인식 중단 중 오류 (무시됨):', e);
+    console.log('🎤 뒤로가기 - 음성인식 중단');
+    
+    // 결과 전송 타이머 취소
+    if (resultTimerRef.current) {
+      clearTimeout(resultTimerRef.current);
+      resultTimerRef.current = null;
+      console.log('🎤 결과 전송 타이머 취소됨 (뒤로가기)');
     }
-  }
-  
-  // 이전 화면으로 돌아가기 (기본값은 'home')
-  setView(previousView || 'home');
-};
+    
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch (e) {
+        console.log('🎤 음성인식 중단 중 오류 (무시됨):', e);
+      }
+    }
+    
+    // 이전 화면으로 돌아가기 (기본값은 'home')
+    setView(previousView || 'home');
+  };
+
+  const currentOrb = getCurrentOrb();
 
   return (
     <div className="app-container">
@@ -374,13 +430,14 @@ const VoiceInput = ({ setView, previousView, onResult }) => {
             muted
             playsInline
             preload="auto"
+            key={selectedOrb} // 키를 변경하여 비디오 리로드 강제
           >
             <source
-              src="https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748854350/LumeeMagicOrb_Safari_rdmthi.mov"
+              src={currentOrb.videoSrc.mp4}
               type='video/mp4; codecs="hvc1"'
             />
             <source
-              src="https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748852283/LumeeMagicOrb_WEBM_tfqoa4.webm"
+              src={currentOrb.videoSrc.webm}
               type="video/webm"
             />
           </video>

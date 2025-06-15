@@ -12,10 +12,12 @@ const Home = ({
   handleVoiceInput,
   weather
 }) => {
-  const today = new Date();
-  const formattedDate = formatDate(today); // ex. "May 24, Monday"
 
-  // 기본 FAQ 데이터
+  // ===== 1. 날짜 포맷팅 =====
+  const today = new Date();
+  const formattedDate = formatDate(today);
+
+  // ===== 2. FAQ 관련 상태 및 데이터 =====
   const defaultFaqItems = [
     "What's the weather like today?",
     "How's the air quality today?", 
@@ -23,7 +25,6 @@ const Home = ({
     "What should I wear today?"
   ];
 
-  // FAQ 편집 상태 관리 - 로컬 스토리지에서 불러오기
   const [faqItems, setFaqItems] = useState(() => {
     try {
       const savedFaqItems = localStorage.getItem('lumeeFaqItems');
@@ -37,7 +38,51 @@ const Home = ({
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
 
-  // FAQ 데이터가 변경될 때마다 로컬 스토리지에 저장
+  // ===== 3. 사이드 메뉴 관련 상태 =====
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // ===== 4. 마법 구슬 관련 데이터 및 상태 =====
+  const orbOptions = [
+    {
+      id: 'default',
+      name: 'Default',
+      description: 'Original magic orb',
+      videoSrc: {
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748854350/LumeeMagicOrb_Safari_rdmthi.mov",
+        webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748852283/LumeeMagicOrb_WEBM_tfqoa4.webm"
+      }
+    },
+    {
+      id: 'dust',
+      name: 'Fine Dust',
+      description: 'Fine dust-reactive magic orb',
+      videoSrc: {
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Safari_tkyral.mov",
+        webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Chrome_filwol.webm"
+      }
+    },
+    {
+      id: 'rain',
+      name: 'Rain',
+      description: 'Rain-reactive magic orb',
+      videoSrc: {
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Safari_tkyral.mov",
+        webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749984445/rainLumee_WEBM_xblf7o.webm"
+      }
+    }
+  ];
+
+  const [selectedOrb, setSelectedOrb] = useState(() => {
+    try {
+      const savedOrb = localStorage.getItem('lumeeSelectedOrb');
+      return savedOrb || 'default';
+    } catch (error) {
+      console.error('구슬 설정 로드 실패:', error);
+      return 'default';
+    }
+  });
+
+  // ===== 5. useEffect - 로컬 스토리지 저장 =====
   useEffect(() => {
     try {
       localStorage.setItem('lumeeFaqItems', JSON.stringify(faqItems));
@@ -46,13 +91,39 @@ const Home = ({
     }
   }, [faqItems]);
 
-  // FAQ 편집 시작
+  useEffect(() => {
+    try {
+      localStorage.setItem('lumeeSelectedOrb', selectedOrb);
+    } catch (error) {
+      console.error('구슬 설정 저장 실패:', error);
+    }
+  }, [selectedOrb]);
+
+  // ===== 6. 사이드 메뉴 관련 함수 =====
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // ===== 7. 마법 구슬 관련 함수 =====
+  const selectOrb = (orbId) => {
+    setSelectedOrb(orbId);
+    closeMenu();
+  };
+
+  const getCurrentOrb = () => {
+    return orbOptions.find(orb => orb.id === selectedOrb) || orbOptions[0];
+  };
+
+  // ===== 8. FAQ 편집 관련 함수 =====
   const startEditing = (index) => {
     setEditingIndex(index);
     setEditText(faqItems[index]);
   };
 
-  // FAQ 편집 저장
   const saveEdit = () => {
     if (editText.trim() === '') {
       alert('FAQ 내용을 입력해주세요!');
@@ -66,18 +137,78 @@ const Home = ({
     setEditText("");
   };
 
-  // FAQ 편집 취소
   const cancelEdit = () => {
     setEditingIndex(null);
     setEditText("");
   };
 
+  // ===== 9. 현재 선택된 구슬 정보 =====
+  const currentOrb = getCurrentOrb();
+
+  // ===== 10. 렌더링 =====
   return (
-    <div className="app-container"> {/* ✅ 공통 정렬용 래퍼 추가 */}
-      {/* 헤더 - 모든 버튼을 일관성 있게 */}
+    <div className="app-container">
+      
+      {/* ===== 사이드 메뉴 ===== */}
+      {isMenuOpen && (
+        <div className="menu-overlay" onClick={closeMenu}>
+          <div className="side-menu" onClick={(e) => e.stopPropagation()}>
+            
+            {/* 메뉴 헤더 */}
+            <div className="menu-header">
+              <h3>
+                Orb Selection 
+                <span className="beta-badge">BETA</span>
+              </h3>
+              <button className="menu-close-btn" onClick={closeMenu}>
+                <img 
+                  src={`${process.env.PUBLIC_URL}/assets/icons/close.svg`}
+                  alt="닫기"
+                  className="close-icon"
+                />
+              </button>
+            </div>
+            
+            {/* 구슬 옵션 목록 */}
+            <div className="orb-options">
+              {orbOptions.map((orb) => (
+                <div 
+                  key={orb.id} 
+                  className={`orb-option ${selectedOrb === orb.id ? 'selected' : ''}`}
+                  onClick={() => selectOrb(orb.id)}
+                >
+                  <div className="orb-preview">
+                    <video
+                      className="orb-preview-video"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      <source src={orb.videoSrc.mp4} type='video/mp4; codecs="hvc1"' />
+                      <source src={orb.videoSrc.webm} type="video/webm" />
+                    </video>
+                  </div>
+                  <div className="orb-info">
+                    <h4>{orb.name}</h4>
+                    <p>{orb.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* 메뉴 푸터 */}
+            <div className="menu-footer">
+              <p className="beta-notice">This is a BETA feature. Auto-adaptive orbs & more styles coming soon!</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ===== 상단 헤더 ===== */}
       <header className="weather-header">
         {/* 왼쪽 메뉴 버튼 */}
-        <button className="header-menu-btn" aria-label="메뉴">
+        <button className="header-menu-btn" onClick={toggleMenu} aria-label="메뉴">
           <img 
             src={`${process.env.PUBLIC_URL}/assets/icons/menu.svg`}
             alt="메뉴"
@@ -85,7 +216,7 @@ const Home = ({
           />
         </button>
         
-        {/* 중앙 위치 - 클릭 가능하게 button으로 변경 */}
+        {/* 중앙 위치 */}
         <button className="header-location" aria-label="위치 새로고침">
           <img 
             src={`${process.env.PUBLIC_URL}/assets/icons/location.svg`}
@@ -93,74 +224,63 @@ const Home = ({
             className="header-location-icon"
           />
           <span className="header-location-name">{location}</span>
-          {/* <span className="header-location-name">{Seongnam-si, KR}</span> 테스트 */} 
         </button>
         
         {/* 오른쪽 프로필 버튼 */}
         <button className="header-profile" aria-label="프로필">
-            <img 
-              src={`${process.env.PUBLIC_URL}/assets/icons/minseo.png`}
-              alt="기본 프로필"
-              className="profile-icon"
-            />
+          <img 
+            src={`${process.env.PUBLIC_URL}/assets/icons/minseo.png`}
+            alt="기본 프로필"
+            className="profile-icon"
+          />
         </button>
-
       </header>
       
-      {/* 날씨 정보 출력 섹션 */}
+      {/* ===== 날씨 정보 섹션 ===== */}
       <div className="home-weather-info">
-
-        {/* 날짜 출력 */}
         <p className="date">{formattedDate}</p>
-
-        {/* 현재 온도 */}
-        <p className="temperature">{weather
-          ? `${weather.temp}°` : `00°C` } </p>
-                    {/* ? `${weather.temp}°C` : `00°C` } </p> */}
-          
-        {/* 기상 정보 */}
+        <p className="temperature">
+          {weather ? `${weather.temp}°` : `00°C`}
+        </p>
         <p className="description">
           <WeatherDescriptionWithIcon weather={weather} />
         </p>
-
-        {/* 체감온도/최고/최저 */}
         <p className="sub-summary">
           {weather ? 
-          `Feels like ${weather.feelsLike}° | H: ${weather.tempMax}° L: ${weather.tempMin}°` 
-          : 'Loading...'}
+            `Feels like ${weather.feelsLike}° | H: ${weather.tempMax}° L: ${weather.tempMin}°` 
+            : 'Loading...'
+          }
         </p>
       </div>
 
+      {/* ===== 마법 구슬 영상 ===== */}
       <div className="background-media">
-
         <video
           className="lumee-magic-orb"
           autoPlay
           loop
           muted
           playsInline
-          
+          key={selectedOrb} // 키를 변경하여 비디오 리로드 강제
         >
-          {/* Cloudinary 주소로 영상 불러옴 (브라우저 대응 + 용량 문제 해결용) */}
           <source
-            src="https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748854350/LumeeMagicOrb_Safari_rdmthi.mov"
+            src={currentOrb.videoSrc.mp4}
             type='video/mp4; codecs="hvc1"'
           />
           <source
-            src="https://res.cloudinary.com/dpuw0gcaf/video/upload/v1748852283/LumeeMagicOrb_WEBM_tfqoa4.webm"
+            src={currentOrb.videoSrc.webm}
             type="video/webm"
           />
         </video>
       </div>
-
  
-      {/* User에게 인사 섹션 */}
+      {/* ===== 사용자 인사 섹션 ===== */}
       <div className="user-greeting-section">
         <div className="greeting">Hello, Minseo👋</div>
         <h1 className="main-question">What weather info do you need?</h1>
       </div>
 
-      {/* FAQ 버튼 섹션 */}
+      {/* ===== FAQ 버튼 섹션 ===== */}
       <div className="faq-section">
         <div className="FAQ-buttons">
           {faqItems.map((faqText, index) => (
@@ -175,16 +295,10 @@ const Home = ({
                     autoFocus
                   />
                   <div className="FAQ-edit-buttons">
-                    <button 
-                      className="FAQ-save-btn"
-                      onClick={saveEdit}
-                    >
+                    <button className="FAQ-save-btn" onClick={saveEdit}>
                       Save
                     </button>
-                    <button 
-                      className="FAQ-cancel-btn"
-                      onClick={cancelEdit}
-                    >
+                    <button className="FAQ-cancel-btn" onClick={cancelEdit}>
                       Cancel
                     </button>
                   </div>
@@ -216,8 +330,9 @@ const Home = ({
         </div>
       </div>
 
+      {/* ===== 하단 입력창 ===== */}
       <div className="footer-input">
-        <div className="input-wrapper">  {/* 새로운 래퍼 추가 */}
+        <div className="input-wrapper">
           <input
             type="text"
             placeholder="Ask Lumee about the weather..."
@@ -225,7 +340,7 @@ const Home = ({
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           />
-          <button className="mic-button" onClick={handleVoiceInput}>  {/* 마이크 버튼 추가 */}
+          <button className="mic-button" onClick={handleVoiceInput}>
             <img 
               src={`${process.env.PUBLIC_URL}/assets/icons/microphone.svg`}
               alt="음성입력"
@@ -243,7 +358,7 @@ const Home = ({
   );
 };
 
-
+// ===== 날짜 포맷팅 유틸리티 함수 =====
 function formatDate(date) {
   const options = { month: 'short', day: 'numeric', weekday: 'long' };
   const parts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
@@ -252,7 +367,7 @@ function formatDate(date) {
   const day = parts.find(p => p.type === 'day').value;
   const weekday = parts.find(p => p.type === 'weekday').value;
 
-  return `${month} ${day}, ${weekday}`;  // month -> day -> weekday 순으로 포맷된 문자열 반환 ("May 24, Monday")
+  return `${month} ${day}, ${weekday}`;
 }
 
 export default Home;

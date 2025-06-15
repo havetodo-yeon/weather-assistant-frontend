@@ -1,3 +1,315 @@
+/* ===== 사이드 메뉴 스타일 ===== */
+
+/* 메뉴 오버레이 (전체 화면 덮개) */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  
+  /* 부드러운 등장 애니메이션 */
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* 사이드 메뉴 패널 */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 330px;
+  height: 100vh;
+  
+  background: rgba(9, 24, 55, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  
+  display: flex;
+  flex-direction: column;
+  
+  /* 왼쪽에서 슬라이드 인 애니메이션 */
+  animation: slideInFromLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  overflow-y: auto;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 메뉴 헤더 */
+.menu-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.menu-header h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+  
+  /* 제목과 배지 사이 간격 */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* BETA 배지 스타일 */
+.beta-badge {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #091837;
+  
+  /* 그라데이션 배경 */
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  padding: 4px 12px;
+  border-radius: 12px;
+  
+  /* 그림자 효과 */
+  box-shadow: 
+    0 3px 10px rgba(151, 245, 253, 0.3),
+    0 1px 6px rgba(238, 180, 243, 0.2);
+  
+  /* 부드러운 애니메이션 */
+  transition: all 0.3s ease;
+  
+  /* 미묘한 발광 효과 */
+  animation: betaGlow 3s ease-in-out infinite;
+}
+
+/* BETA 배지 호버 효과 */
+.beta-badge:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 
+    0 5px 15px rgba(151, 245, 253, 0.4),
+    0 2px 8px rgba(238, 180, 243, 0.3);
+}
+
+/* BETA 배지 발광 애니메이션 */
+@keyframes betaGlow {
+  0%, 100% {
+    box-shadow: 
+      0 3px 10px rgba(151, 245, 253, 0.3),
+      0 1px 6px rgba(238, 180, 243, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 3px 15px rgba(151, 245, 253, 0.5),
+      0 1px 8px rgba(238, 180, 243, 0.4);
+  }
+}
+.menu-close-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: all 0.2s ease;
+}
+
+.menu-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.close-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 구슬 옵션 컨테이너 */
+.orb-options {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 개별 구슬 옵션 */
+.orb-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  /* 호버 효과를 위한 오버플로우 숨김 */
+  overflow: hidden;
+}
+
+.orb-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(151, 245, 253, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.orb-option:hover::before {
+  left: 100%;
+}
+
+.orb-option:hover {
+  border-color: rgba(151, 245, 253, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(151, 245, 253, 0.15);
+}
+
+.orb-option.selected {
+  border-color: rgba(151, 245, 253, 0.5);
+  background: rgba(151, 245, 253, 0.1);
+  box-shadow: 0 4px 20px rgba(151, 245, 253, 0.2);
+}
+
+/* 구슬 프리뷰 영상 */
+.orb-preview {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.orb-preview-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 구슬 정보 */
+.orb-info {
+  flex: 1;
+}
+
+.orb-info h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.orb-info p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* 메뉴 푸터 */
+.menu-footer {
+  padding: 16px 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.beta-notice {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+  
+  padding: 8px 12px;
+  background: rgba(238, 180, 243, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(238, 180, 243, 0.2);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .side-menu {
+    width: 290px;
+  }
+  
+  .orb-preview {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .menu-header {
+    padding: 20px 16px 12px;
+  }
+  
+  .orb-options {
+    padding: 16px;
+  }
+  
+  .orb-option {
+    padding: 12px;
+  }
+  
+  /* 모바일에서 구슬 설명 폰트 크기 줄이기 */
+  .orb-info p {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+}
+
+/* 아주 작은 화면 (320px 이하) */
+@media (max-width: 320px) {
+  .side-menu {
+    width: 100vw;
+  }
+}
+
+
 /* 부모 헤더의 설정 */
 .weather-header {
   width: 100%;
@@ -352,6 +664,7 @@
   /* 텍스트 오버플로우 처리 - 2줄까지 표시하고 나머지는 ... */
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
