@@ -32,14 +32,26 @@ const WeatherLineChart = ({ graph }) => {
     ]
   };
 
-  const options = {
-    responsive: true,
-    plugins: {
-      tooltip: {
-        enabled: true
+const options = {
+  responsive: true,
+  plugins: {
+    tooltip: {
+      enabled: true
+    }
+  },
+  scales: {
+    y: {
+      ticks: {
+        callback: function(value) {
+          return `${value}°C`;
+        },
+        font: {
+          size: 12
+        }
       }
     }
-  };
+  }
+};
 
   return (
     <div style={{ height: 250 }}>
