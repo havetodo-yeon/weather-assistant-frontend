@@ -199,7 +199,7 @@ const Home = ({
             
             {/* 메뉴 푸터 */}
             <div className="menu-footer">
-              <p className="beta-notice">This is a BETA feature. Auto-adaptive orbs & more styles coming soon!</p>
+              <p className="beta-notice">This is a BETA feature. Auto-reactive orbs & more styles coming soon!</p>
             </div>
           </div>
         </div>
