@@ -246,20 +246,20 @@
 
 /* 하단 채팅창 컨테이너 */
 .footer-input {
-  position: absolute;
-  top: 830px;
-  left: 50%;
-  transform: translateX(-50%);
+   position: absolute;
+  top: 809px;
   
-  width: 390px;
-  max-width: 390px;
+  /* 헤더처럼 padding으로 마진 처리 */
+  left: 0;
+  right: 0;
+  padding: 24px min(20px, 5vw) 51px min(20px, 5vw) !important;
   
   display: flex;
   gap: 8px; 
   align-items: center;
+  justify-content: center;
   
-  padding: 0;
-  margin: 0;
+  margin: 0 !important;
   z-index: 20;
 }
 

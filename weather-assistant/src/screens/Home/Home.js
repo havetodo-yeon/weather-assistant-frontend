@@ -66,7 +66,7 @@ const Home = ({
       name: 'Rain',
       description: 'Rain-reactive magic orb',
       videoSrc: {
-        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749988390/finedustLumee_Safari_tkyral.mov",
+        mp4: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749984449/rainLumee_Safari_iyfm0v.mov",
         webm: "https://res.cloudinary.com/dpuw0gcaf/video/upload/v1749984445/rainLumee_WEBM_xblf7o.webm"
       }
     }
@@ -199,7 +199,7 @@ const Home = ({
             
             {/* 메뉴 푸터 */}
             <div className="menu-footer">
-              <p className="beta-notice">This is a BETA feature. Auto-adaptive orbs & more styles coming soon!</p>
+              <p className="beta-notice">This is a BETA feature. Auto-reactive orbs & more styles coming soon!</p>
             </div>
           </div>
         </div>

@@ -8,69 +8,83 @@
 body {
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   color: #ffffff;
-  background: #000;
+  /* 전체 body 배경을 그라데이션으로 */
+  background: linear-gradient(
+    to bottom,
+    #091837 0%,
+    #091837 50%,
+    #1F366F 100%
+  );
+  background-attachment: fixed; /* body에서만 fixed 사용 */
   overflow-x: hidden;
-  
 }
 
 /* 메인 앱 래퍼 */
 .app {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: #000;
+  align-items: flex-start;
+  
+  /* 배경 투명 - body 배경 그대로 보이게 */
+  background: transparent;
 }
 
 /* 핵심 앱 컨테이너 */
 .app-container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 430px;
-  max-height: 932px;
   
   /* 안전 영역 처리 */
-  /* iPhone 14 Pro Max 기준 설정 */
   padding-top: env(safe-area-inset-top, 59px); 
   padding-bottom: env(safe-area-inset-bottom, 34px);
   padding-left: env(safe-area-inset-left, 20px);
   padding-right: env(safe-area-inset-right, 20px);
-  
 
-  /* 배경 */
-  background: linear-gradient(
-    180deg,
-    #091837 0%,
-    #091837 50%,
-    #1F366F 100%
-  );
+  /* 배경 투명 - body 배경 그대로 보이게 */
+  background: transparent;
   
   /* 레이아웃 */
   display: flex;
   flex-direction: column;
   position: relative;
   margin: 0 auto;
-  /* overflow: hidden; */
 }
-
-
 
 /* 데스크톱에서 카드 스타일 */
 @media (min-width: 768px) {
-  .app {
+  body {
+    /* 데스크톱에서는 일반 배경 */
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background-attachment: scroll;
+  }
+  
+  .app {
+    background: transparent;
     padding: 40px;
+    align-items: center;
   }
   
   /* 휴대폰 모양 만들기 */
   .app-container {
     width: 430px;
     height: 932px;
+    min-height: 932px;
     border-radius: 40px;
     border: 8px solid #48484a;
+    overflow: hidden;
+    
+    /* 데스크톱에서만 앱 컨테이너에 그라데이션 적용 */
+    background: linear-gradient(
+      180deg,
+      #091837 0%,
+      #091837 50%,
+      #1F366F 100%
+    );
   
-  /* 프리미엄 메탈릭 효과 */
+    /* 프리미엄 메탈릭 효과 */
     box-shadow: 
       0 25px 80px rgba(0, 0, 0, 0.7),
       inset 0 1px 0 rgba(255, 255, 255, 0.25),
