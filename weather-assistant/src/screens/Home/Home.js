@@ -262,6 +262,7 @@ const Home = ({
           muted
           playsInline
           key={selectedOrb} // 키를 변경하여 비디오 리로드 강제
+          controls={false}  
         >
           <source
             src={currentOrb.videoSrc.mp4}
