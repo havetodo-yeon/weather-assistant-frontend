@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/weather-assistant-frontend/static/css/main.9da1e166.css",
-    "main.js": "/weather-assistant-frontend/static/js/main.938fd965.js",
-    "static/js/453.1a05254e.chunk.js": "/weather-assistant-frontend/static/js/453.1a05254e.chunk.js",
-    "index.html": "/weather-assistant-frontend/index.html",
-    "main.9da1e166.css.map": "/weather-assistant-frontend/static/css/main.9da1e166.css.map",
-    "main.938fd965.js.map": "/weather-assistant-frontend/static/js/main.938fd965.js.map",
-    "453.1a05254e.chunk.js.map": "/weather-assistant-frontend/static/js/453.1a05254e.chunk.js.map"
+    "main.css": "/static/css/main.90f7160d.css",
+    "main.js": "/static/js/main.55472e13.js",
+    "static/js/453.1a05254e.chunk.js": "/static/js/453.1a05254e.chunk.js",
+    "index.html": "/index.html",
+    "main.90f7160d.css.map": "/static/css/main.90f7160d.css.map",
+    "main.55472e13.js.map": "/static/js/main.55472e13.js.map",
+    "453.1a05254e.chunk.js.map": "/static/js/453.1a05254e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9da1e166.css",
-    "static/js/main.938fd965.js"
+    "static/css/main.90f7160d.css",
+    "static/js/main.55472e13.js"
   ]
 }
