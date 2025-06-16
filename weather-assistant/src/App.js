@@ -35,7 +35,7 @@ function App() {
         setCoords({ latitude, longitude });
         
         try {
-          const res = await fetch('http://localhost:4000/reverse-geocode', {
+          const res = await fetch('https://weather-assistant-backend1.onrender.com/reverse-geocode', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ latitude, longitude })
@@ -48,7 +48,7 @@ function App() {
         }
 
         try {
-          const res = await fetch('http://localhost:4000/weather', {
+          const res = await fetch('https://weather-assistant-backend1.onrender.com/weather', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ latitude, longitude })
@@ -322,7 +322,7 @@ function App() {
 
     try {
       // ✅ 엔드포인트를 /chat으로 변경하고, uid를 함께 전송합니다.
-      const res = await fetch('http://localhost:4000/chat', {
+      const res = await fetch('https://weather-assistant-backend1.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userInput: messageText, location, coords, uid: 'testUser1' }),
