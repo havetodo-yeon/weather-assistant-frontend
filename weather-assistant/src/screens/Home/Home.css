@@ -1,0 +1,1166 @@
+/* ===== 사이드 메뉴 스타일 ===== */
+
+/* 메뉴 오버레이 (전체 화면 덮개) */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  
+  /* 부드러운 등장 애니메이션 */
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* 사이드 메뉴 패널 */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 330px;
+  height: 100vh;
+  
+  background: rgba(9, 24, 55, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  
+  display: flex;
+  flex-direction: column;
+  
+  /* 왼쪽에서 슬라이드 인 애니메이션 */
+  animation: slideInFromLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  overflow-y: auto;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 메뉴 헤더 */
+.menu-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.menu-header h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+  
+  /* 제목과 배지 사이 간격 */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* BETA 배지 스타일 */
+.beta-badge {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #091837;
+  
+  /* 그라데이션 배경 */
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  padding: 4px 12px;
+  border-radius: 12px;
+  
+  /* 그림자 효과 */
+  box-shadow: 
+    0 3px 10px rgba(151, 245, 253, 0.3),
+    0 1px 6px rgba(238, 180, 243, 0.2);
+  
+  /* 부드러운 애니메이션 */
+  transition: all 0.3s ease;
+  
+  /* 미묘한 발광 효과 */
+  animation: betaGlow 3s ease-in-out infinite;
+}
+
+/* BETA 배지 호버 효과 */
+.beta-badge:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 
+    0 5px 15px rgba(151, 245, 253, 0.4),
+    0 2px 8px rgba(238, 180, 243, 0.3);
+}
+
+/* BETA 배지 발광 애니메이션 */
+@keyframes betaGlow {
+  0%, 100% {
+    box-shadow: 
+      0 3px 10px rgba(151, 245, 253, 0.3),
+      0 1px 6px rgba(238, 180, 243, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 3px 15px rgba(151, 245, 253, 0.5),
+      0 1px 8px rgba(238, 180, 243, 0.4);
+  }
+}
+.menu-close-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: all 0.2s ease;
+}
+
+.menu-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.close-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 구슬 옵션 컨테이너 */
+.orb-options {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 개별 구슬 옵션 */
+.orb-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  /* 호버 효과를 위한 오버플로우 숨김 */
+  overflow: hidden;
+}
+
+.orb-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(151, 245, 253, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.orb-option:hover::before {
+  left: 100%;
+}
+
+.orb-option:hover {
+  border-color: rgba(151, 245, 253, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(151, 245, 253, 0.15);
+}
+
+.orb-option.selected {
+  border-color: rgba(151, 245, 253, 0.5);
+  background: rgba(151, 245, 253, 0.1);
+  box-shadow: 0 4px 20px rgba(151, 245, 253, 0.2);
+}
+
+/* 구슬 프리뷰 영상 */
+.orb-preview {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.orb-preview-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 구슬 정보 */
+.orb-info {
+  flex: 1;
+}
+
+.orb-info h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.orb-info p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* 메뉴 푸터 */
+.menu-footer {
+  padding: 16px 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.beta-notice {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+  
+  padding: 8px 12px;
+  background: rgba(238, 180, 243, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(238, 180, 243, 0.2);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .side-menu {
+    width: 290px;
+  }
+  
+  .orb-preview {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .menu-header {
+    padding: 20px 16px 12px;
+  }
+  
+  .orb-options {
+    padding: 16px;
+  }
+  
+  .orb-option {
+    padding: 12px;
+  }
+  
+  /* 모바일에서 구슬 설명 폰트 크기 줄이기 */
+  .orb-info p {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+}
+
+/* 아주 작은 화면 (320px 이하) */
+@media (max-width: 320px) {
+  .side-menu {
+    width: 100vw;
+  }
+}
+
+
+/* 부모 헤더의 설정 */
+.weather-header {
+  width: 100%;
+  height: 56px;
+  position: absolute;
+  top: calc(59px + env(safe-area-inset-top, 0px)); /* 안전영역 추가 */
+  
+  background: transparent;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 min(20px, 5vw); /* 반응형 패딩 */
+  z-index: 10;
+}
+
+/* 왼쪽 메뉴 버튼 */
+.header-menu-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 메뉴 버튼에 마우스 올렸을 때 효과 */
+.header-menu-btn:hover {
+  transform: scale(1.05);          /* 크기를 5% 확대 */
+  opacity: 0.8;
+}
+
+/* 메뉴 버튼 클릭했을 때 효과 */
+.header-menu-btn:active {
+  transform: scale(0.95);          /* 크기를 5% 축소 */
+}
+
+
+/* 헤더 위치 버튼 */
+.header-location {
+  /* 기본 button 스타일 제거 */
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  outline: none;
+  
+  /* 레이아웃 */
+  display: flex;      /* 📍과 Seoul을 나란히 배치 */
+  align-items: center; /* 세로로 가운데 정렬 */
+  gap: 3px;          /* 📍과 Seoul 사이 간격 */         
+  
+  /* 헤더에서 중앙 배치 */
+  /* flex: 1; 남은 공간을 모두 차지 */
+  justify-content: center; /* 가로로 가운데 정렬 */
+  
+  /* 마우스 올리면 손가락 모양으로 변경 */
+  cursor: pointer;
+  /* transition: all 0.2s ease; */
+}
+
+/* 메뉴 버튼에 마우스 올렸을 때 효과 */
+.header-location:hover {
+  opacity: 0.8;
+}
+
+/* 위치 이름 버튼 클릭했을 때 효과 (위치 이름 클릭했을 때 위치 직접 검색도 기능도 구현 확장성을 고려해 버튼으로 만들어 둠 */
+.header-location:active {
+  transform: scale(0.95);          /* 클릭시 크기 5% 축소 */
+}
+
+/* 헤더 위치 버튼 - 텍스트 오버플로우 개선 */
+.header-location-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(18px, 5.1vw, 22px);
+  font-weight: 400;
+  color: #FFFFFF;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100vw - min(160px, 40vw)); /* 메뉴 버튼과 프로필 공간 제외 */
+}
+
+
+/* 프로필 버튼 - 32x32 고정 크기 */
+.header-profile {
+  /* 기본 button 스타일 제거 */
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  outline: none;
+  
+  /* 고정 크기 설정 */
+  width: 32px !important;         /* 가로 32px 고정 */
+  height: 32px !important;        /* 세로 32px 고정 */
+  min-width: 32px;               /* 최소 크기도 32px */
+  min-height: 32px;              /* 최소 크기도 32px */
+  max-width: 32px;               /* 최대 크기도 32px */
+  max-height: 32px;              /* 최대 크기도 32px */
+  
+  /* 원형 모양 */
+  border-radius: 50%;            /* 완전한 원 */
+  overflow: hidden;              /* 넘치는 부분 잘라내기 */
+  
+  cursor: pointer;
+}
+
+/* 프로필 사진 - 자동 크기 조정 */
+.profile-image {
+  width: 100% !important;        /* 부모(32px)에 맞게 가로 크기 */
+  height: 100% !important;       /* 부모(32px)에 맞게 세로 크기 */
+  object-fit: cover;             /* 비율 유지하면서 영역 꽉 채우기 */
+  object-position: center;       /* 사진 중앙 부분 보여주기 */
+  display: block;                /* 기본 여백 제거 */
+  
+  /* 추가 보장 */
+  max-width: none;               /* 최대 크기 제한 해제 */
+  max-height: none;              /* 최대 크기 제한 해제 */
+  flex-shrink: 0;                /* 줄어들지 않게 */
+}
+
+
+/* 아이콘 크기  */
+.menu-icon,
+.header-location-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.profile-icon {
+  width: 32px;                 
+  height: 32px;           
+}
+
+
+
+/* 날짜  */
+.date {
+
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 38px;
+  
+  position: absolute;
+  top: 115px;                    /* 상태바(59) + 헤더(56) = 115px */
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 38px; 
+  
+  margin: 0;
+}
+
+
+/* 기온 */
+.temperature {
+
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 69px;
+  
+  position: absolute;
+  top: 165px;                    
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 69px; 
+  
+  margin: 0;
+}
+
+
+
+/* 기상 정보 */
+.description {
+
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 22px;
+  
+  position: absolute;
+  top: 242px;                    /* 상태바(59) + 헤더(56) + 날짜(38) = 153px */
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 22px; 
+  
+  margin: 0;
+}
+
+/* 체감/최고/최저 */
+.sub-summary {
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 22px;
+  
+  position: absolute;
+  top: 268px;                 
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #FFFFFF99;
+  text-align: center;
+  line-height: 20px; 
+  
+  margin: 0;
+}
+
+
+.lumee-magic-orb {
+  width: 270px;
+  height: 270px;
+  position: absolute;
+  top: 290px;
+  left: 50%;                    /* 화면 중앙에서 시작 */
+  transform: translateX(-50%);  /* 자기 크기의 절반만큼 왼쪽으로 이동 */
+  pointer-events: none; /* 사용자 클릭 방지 */
+  z-index: 0;            /* 맨 뒤에 배치 (다른 요소들 아래) */
+}
+
+.greeting {
+  width: auto; /* 텍스트 길이에 따라 자동 조정 */
+  height: 23px;
+  
+  position: absolute;
+  top: 558px;                 
+  left: 50%;                     /* 부모 요소 가로 길이의 50% 지점에서 시작 */
+  transform: translateX(-50%);   /* 자기 자신의 가로 길이의 50%만큼 왼쪽으로 이동 */
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 23px; 
+  
+  margin: 0;
+}
+
+/* 메인 질문 - 마진 적용 */
+.main-question {
+  width: calc(100% - min(40px, 10vw)); /* 헤더와 동일한 마진 */
+  max-width: 386px;
+  height: 30px;
+  
+  position: absolute;
+  top: calc(582px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(18px, 4.7vw, 20px);
+  font-weight: 600;
+  text-align: center;
+  line-height: 30px;
+  
+  /* 그라데이션 텍스트 */
+  background: linear-gradient(90deg, #97F5FD 0%, #EEB4F3 100%);
+  color: #FFFFFF;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  
+  margin: 0;
+}
+
+/* FAQ 카드 컨테이너 - 헤더와 동일한 마진 적용 */
+.FAQ-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: min(16px, 4vw);
+  
+  position: absolute;
+  top: calc(635px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - min(40px, 10vw)); /* 헤더 패딩 * 2 만큼 빼기 */
+  max-width: 390px; /* 최대 너비 제한 */
+  
+  padding: 0;
+  margin: 0;
+}
+
+
+/* 개별 FAQ 카드 래퍼 - 꼭 필요 */
+.FAQ-card {
+  position: relative;              /* 편집 버튼 절대 위치 기준점 */
+  width: 100%;
+  height: 79px;
+}
+
+
+/* 메인 FAQ 버튼 */
+.FAQ-button {
+  /* 크기 - 카드 전체 크기 */
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  
+  /* 레이아웃 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* 모양 */
+  border-radius: 16px;
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  
+  /* 배경 */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  
+  /* 그림자 */
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  
+  /* 텍스트 */
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: left;
+  line-height: 22px;
+  
+  /* 인터랙션 */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  /* 기본 스타일 초기화 */
+  margin: 0;
+  outline: none;
+}
+
+/* FAQ 버튼 내부 텍스트 래퍼 */
+.FAQ-button-text {
+  /* 텍스트 오버플로우 처리 - 2줄까지 표시하고 나머지는 ... */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: left;
+  line-height: 22px;
+}
+
+/* FAQ 버튼 호버 효과 */
+.FAQ-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* FAQ 버튼 클릭 효과 */
+.FAQ-button:active {
+  transform: translateY(0);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* 편집 버튼 */
+.FAQ-edit-btn {
+  /* 위치 - 카드 우측 상단 */
+  position: absolute !important;   /* 중요: 다른 스타일 덮어쓰기 방지 */
+  top: -7px;
+  right: 0px;
+  
+  /* 크기 */
+  width: 20px;
+  height: 20px;
+  
+  /* 모양 */
+  border-radius: 25px;
+  border: none;                    /* 외부 테두리 제거 */
+  
+  /* 배경 */
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(8px);
+  
+  /* 그림자 - 안쪽 테두리 + 외부 그림자 */
+  box-shadow: 
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3), /* 안쪽 테두리 */
+    0px 4px 12px 0px rgba(0, 0, 0, 0.15);        /* 외부 그림자 */
+  
+  /* 레이아웃 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* 패딩 초기화 */
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  /* 인터랙션 */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;                     /* FAQ 버튼 위에 표시 */
+  outline: none;
+}
+
+/* 편집 버튼 호버 효과 */
+.FAQ-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: scale(1.1);
+  box-shadow: 
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3), /* 안쪽 테두리 */
+    0px 4px 12px 0px rgba(0, 0, 0, 0.15);        /* 외부 그림자 */
+}
+
+/* 편집 버튼 클릭 효과 */
+.FAQ-edit-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 편집 아이콘 스타일 */
+.edit-icon {
+  width: 12px;                 
+  height: 12px; 
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 편집 버튼 호버 시 아이콘 효과 */
+.FAQ-edit-btn:hover .edit-icon {
+  opacity: 1;
+}
+
+/* FAQ 편집 모드 스타일 */
+.FAQ-edit-mode {
+  /* 크기 - 카드 전체 크기 */
+  width: 100%;
+  height: 100%;
+  
+  /* 레이아웃 */
+  display: flex;
+  flex-direction: column;
+  
+  /* 모양 */
+  border-radius: 16px;
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  
+  /* 배경 */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  
+  /* 그림자 */
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  
+  padding: 8px;
+  position: relative;
+}
+
+/* FAQ 편집 입력창 */
+.FAQ-edit-input {
+  flex: 1;
+  width: 100%;
+  
+  /* 모양 */
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  
+  /* 텍스트 - 기본 FAQ와 동일하게 */
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 22px;
+  text-align: left;
+  
+  /* 레이아웃 */
+  padding: 4px 8px;
+  resize: none;
+  outline: none;
+  
+  /* 텍스트 오버플로우 처리 - FAQ 버튼과 동일 */
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-word;
+  
+  /* 스크롤바 숨기기 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.FAQ-edit-input::-webkit-scrollbar {
+  display: none;
+}
+
+/* placeholder 스타일 */
+.FAQ-edit-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* FAQ 편집 버튼 컨테이너 */
+.FAQ-edit-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+/* FAQ 저장/취소 버튼 공통 스타일 */
+.FAQ-save-btn,
+.FAQ-cancel-btn {
+  flex: 1;
+  height: 20px;
+  
+  /* 모양 */
+  border: none;
+  border-radius: 6px;
+  
+  /* 텍스트 */
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  
+  /* 인터랙션 */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+/* FAQ 저장 버튼 */
+.FAQ-save-btn {
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  color: #091837;
+}
+
+.FAQ-save-btn:hover {
+  background: linear-gradient(45deg, #87E5ED 15.63%, #DEA4E3 85.42%);
+  transform: translateY(-1px);
+}
+
+.FAQ-save-btn:active {
+  transform: translateY(0);
+}
+
+/* FAQ 취소 버튼 */
+.FAQ-cancel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.FAQ-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.FAQ-cancel-btn:active {
+  transform: translateY(0);
+}
+
+/* 하단 채팅창 컨테이너 */
+.footer-input {
+  position: absolute;
+  top: 809px;
+  
+  /* 헤더처럼 padding으로 마진 처리 */
+  left: 0;
+  right: 0;
+  padding: 24px min(20px, 5vw) 51px min(20px, 5vw) !important;
+  
+  display: flex;
+  gap: 8px; 
+  align-items: center;
+  justify-content: center;
+  
+  margin: 0 !important;
+  z-index: 20;
+}
+
+/* 입력창 래퍼 */
+.input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: 71px;
+  background: #FFFFFF;
+
+  /* 기본 그림자 효과 추가 */
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  
+  /* 부드러운 전환 효과 */
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+/* 텍스트 입력창 */
+.footer-input input {
+  flex: 1;
+  height: 48px;
+  padding: 13px 56px 13px 16px;
+  
+  /* 모양 */
+  border-radius: 71px;
+  border: none;
+  background: transparent;  /* 배경 투명 */
+  
+  /* 텍스트 */
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #091837;
+  line-height: 22px;
+  
+  outline: none;
+  margin: 0;
+}
+
+/* 입력창 placeholder 스타일 */
+.footer-input input::placeholder {
+  color: rgba(9, 24, 55, 0.60);
+  font-weight: 400;
+}
+
+/* 포커스 시 placeholder 사라지는 효과 */
+.footer-input input:focus::placeholder {
+  opacity: 0;
+}
+
+/* 입력창 호버 효과 */
+.input-wrapper:hover {
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.3),
+    0 0 25px rgba(238, 180, 243, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 입력창 포커스 효과 */
+.input-wrapper:focus-within {
+  box-shadow: 
+    0 0 20px rgba(151, 245, 253, 0.4),
+    0 0 30px rgba(238, 180, 243, 0.3),
+    0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* 마이크 버튼 */
+.mic-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 32px;  
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  outline: none;
+  
+}
+
+/* 마이크 버튼 안의 이미지 */
+.mic-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* 마이크 버튼 호버 효과 - 자연스러운 회색 */
+.mic-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mic-button:hover img {
+  opacity: 1;
+}
+
+/* 마이크 버튼 클릭 효과 - 자연스러운 회색 */
+.mic-button:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* 전송 버튼 */
+.send-button {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  padding: 0;
+  margin: 0;
+  
+  position: relative;
+  overflow: hidden;
+  
+  /* 기본 그림자 효과 - 입력창과 동일 */
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    
+  /* 미묘한 그라데이션 애니메이션 */
+  animation: subtleGradientShift 15s ease-in-out infinite;
+
+}
+
+/* 버튼 내부 반짝임 효과 - 오로라 흐름 */
+.send-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(151, 245, 253, 0.4),
+    rgba(238, 180, 243, 0.4),
+    transparent
+  );
+  animation: auroraFlow 4s linear infinite;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* 전송 버튼 안의 아이콘 */
+.send-button img {
+  width: 24px;
+  height: 24px;
+  transform: translate(-1px, 1px);
+  z-index: 10;
+  position: relative;
+}
+
+/* 전송 버튼 호버 효과 - 입력창과 동일 */
+.send-button:hover {
+  box-shadow: 
+    0 0 15px rgba(151, 245, 253, 0.3),
+    0 0 25px rgba(238, 180, 243, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* 전송 버튼 클릭 효과 - 입력창과 동일 */
+.send-button:active {
+  box-shadow: 
+    0 0 20px rgba(151, 245, 253, 0.4),
+    0 0 30px rgba(238, 180, 243, 0.3),
+    0 6px 15px rgba(0, 0, 0, 0.12),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 오로라 흐름 애니메이션 */
+@keyframes auroraFlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 미묘한 그라데이션 애니메이션 */
+@keyframes subtleGradientShift {
+  0% {
+    background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  }
+  25% {
+    background: linear-gradient(50deg, #97F5FD 12%, #EEB4F3 88%);
+  }
+  50% {
+    background: linear-gradient(40deg, #97F5FD 19%, #EEB4F3 81%);
+  }
+  75% {
+    background: linear-gradient(52deg, #97F5FD 14%, #EEB4F3 86%);
+  }
+  100% {
+    background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+  }
+}
+
+/* 버튼이 비활성화된 경우 */
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 
+    0 0 10px rgba(151, 245, 253, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.send-button:disabled::before {
+  animation: none;
+}
+
+.send-button:disabled:hover {
+  transform: none;
+  background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
+}
+
+
+/* 날씨 description 컨테이너 - 아이콘과 텍스트를 가로로 배치 */
+.weather-description-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 날씨 아이콘 스타일 */
+.weather-icon {
+  width: 16px !important;
+  height: 16px !important;
+  color: #FFFFFF;
+  flex-shrink: 0; /* 아이콘 크기 고정 */
+}
+
+/* 날씨 텍스트 스타일 */
+.weather-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #FFFFFF;
+  line-height: 22px;
+}

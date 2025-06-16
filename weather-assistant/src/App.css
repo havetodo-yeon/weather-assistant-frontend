@@ -1,275 +1,101 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+/* 전역 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #1e2a78, #121429);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  color: #ffffff;
+  /* 전체 body 배경을 그라데이션으로 */
+  background: linear-gradient(
+    to bottom,
+    #091837 0%,
+    #091837 50%,
+    #1F366F 100%
+  );
+  background-attachment: fixed; /* body에서만 fixed 사용 */
+  overflow-x: hidden;
 }
 
+/* 메인 앱 래퍼 */
 .app {
-  width: 100%;
-  max-width: 420px;
-  height: 100vh;
-  padding: 24px;
-  box-sizing: border-box;
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* HOME */
-.home-screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-top: 40px;
-}
-
-.time-bar {
-  font-size: 14px;
-  opacity: 0.6;
-}
-
-.welcome {
-  font-size: 20px;
-  font-weight: 400;
-  text-align: center;
-}
-
-.summary {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 24px;
-}
-
-.preset-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.preset-buttons button {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  padding: 14px 16px;
-  font-size: 15px;
-  color: white;
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-}
-
-.glow-mic {
-  margin-top: 32px;
-  width: 60px;
-  height: 60px;
-  font-size: 26px;
-  border-radius: 50%;
-  border: none;
-  background: radial-gradient(circle, #a9b8ff, #5c5ce0);
-  box-shadow: 0 0 20px #849bff, 0 0 60px rgba(132, 155, 255, 0.3);
-  cursor: pointer;
-}
-
-/* 입력창 고정 */
-.footer-input {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: auto;
-}
-
-.footer-input input {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  outline: none;
-  font-size: 14px;
-}
-
-.footer-input button {
-  padding: 12px 18px;
-  border-radius: 50%;
-  border: none;
-  background: #7f9dff;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(127, 157, 255, 0.5);
-}
-
-/* CHAT */
-.chat-screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.messages {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.bubble {
-  max-width: 80%;
-  padding: 14px 18px;
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 6px 0;
-  position: relative;
-  word-break: break-word;
-  transition: all 0.2s ease;
-}
-
-/* ✅ 사용자 메시지 - 흰 배경 + 우측 정렬 + 살짝 그림자 */
-.bubble.user {
-  align-self: flex-end;
-  background: #ffffff;
-  color: #121429;
-  border-radius: 18px 18px 6px 18px;
-
-}
-
-/* ✅ 챗봇 메시지 - 반투명 유리 + 좌측 정렬 */
-.bubble.bot {
-  align-self: flex-start;
-  background: rgba(255, 255, 255, 0.05);
-  color: #f5f5f5;
-  border-radius: 18px 18px 18px 6px;
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-}
-
-
-
-
-/* LISTENING */
-.listening-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120px;
-  gap: 24px;
-}
-
-.listening-text {
-  font-size: 18px;
-  opacity: 0.8;
-}
-
-.mic-pulse {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #f0a9ff, #643fe6);
-  animation: pulse 1.2s infinite ease-in-out;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 32px;
+  align-items: flex-start;
+  
+  /* 배경 투명 - body 배경 그대로 보이게 */
+  background: transparent;
 }
 
-.back-button {
-  padding: 10px 16px;
-  border-radius: 16px;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  cursor: pointer;
-}
+/* 핵심 앱 컨테이너 */
+.app-container {
+  width: 100vw;
+  min-height: 100vh;
+  max-width: 430px;
+  
+  /* 안전 영역 처리 */
+  padding-top: env(safe-area-inset-top, 59px); 
+  padding-bottom: env(safe-area-inset-bottom, 34px);
+  padding-left: env(safe-area-inset-left, 20px);
+  padding-right: env(safe-area-inset-right, 20px);
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.weather-card {
-  margin-top: 10px;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-  animation: fadeIn 0.4s ease-in;
-}
-
-.weather-icon {
-  font-size: 28px;
-}
-
-.weather-info {
+  /* 배경 투명 - body 배경 그대로 보이게 */
+  background: transparent;
+  
+  /* 레이아웃 */
   display: flex;
   flex-direction: column;
+  position: relative;
+  margin: 0 auto;
 }
 
-.temp {
-  font-size: 20px;
-  font-weight: 600;
+/* 데스크톱에서 카드 스타일 */
+@media (min-width: 768px) {
+  body {
+    /* 데스크톱에서는 일반 배경 */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background-attachment: scroll;
+  }
+  
+  .app {
+    background: transparent;
+    padding: 40px;
+    align-items: center;
+  }
+  
+  /* 휴대폰 모양 만들기 */
+  .app-container {
+    width: 430px;
+    height: 932px;
+    min-height: 932px;
+    border-radius: 40px;
+    border: 8px solid #48484a;
+    overflow: hidden;
+    
+    /* 데스크톱에서만 앱 컨테이너에 그라데이션 적용 */
+    background: linear-gradient(
+      180deg,
+      #091837 0%,
+      #091837 50%,
+      #1F366F 100%
+    );
+  
+    /* 프리미엄 메탈릭 효과 */
+    box-shadow: 
+      0 25px 80px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  }
 }
 
-.condition {
-  font-size: 14px;
-  opacity: 0.8;
+/* 작은 디바이스 대응 */
+@media (max-width: 375px) {
+  .app-container {
+    padding-left: env(safe-area-inset-left, 16px);
+    padding-right: env(safe-area-inset-right, 16px);
+  }
 }
-
-.details {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-top: 2px;
-}
-
-.dust-card, .pollen-card {
-  margin-top: 10px;
-  padding: 12px 16px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  border: 1.5px solid;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.dust-title, .pollen-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.dust-info, .pollen-info {
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-.location {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 4px;
-}
-
-
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
