@@ -1164,3 +1164,228 @@
   color: #FFFFFF;
   line-height: 22px;
 }
+
+/* 모바일 반응형 디자인 */
+
+/* iPhone SE 크기 및 작은 모바일 대응 */
+@media screen and (max-width: 414px) and (max-height: 736px) {
+  
+  /* 헤더 위치 조정 */
+  .weather-header {
+    top: calc(44px + env(safe-area-inset-top, 0px)) !important;
+  }
+  
+  /* 날짜 위치 조정 */
+  .date {
+    top: 85px !important;
+    font-size: 16px !important;
+  }
+  
+  /* 온도 위치 및 크기 조정 */
+  .temperature {
+    top: 112px !important;
+    font-size: 48px !important;
+  }
+  
+  /* 날씨 설명 위치 조정 */
+  .description {
+    top: 174px !important;
+    font-size: 14px !important;
+  }
+  
+  /* 체감온도 등 부가정보 위치 조정 */
+  .sub-summary {
+    top: 195px !important;
+    font-size: 12px !important;
+  }
+  
+  /* 마법 구슬 위치 및 크기 조정 */
+  .lumee-magic-orb {
+    width: 160px !important;
+    height: 160px !important;
+    top: 210px !important;
+  }
+  
+  /* 인사말 위치 조정 */
+  .greeting {
+    top: 360px !important;
+    font-size: 14px !important;
+  }
+  
+  /* 메인 질문 위치 조정 */
+  .main-question {
+    top: calc(380px + env(safe-area-inset-top, 0px)) !important;
+    font-size: 16px !important;
+  }
+  
+  /* FAQ 버튼들 위치 조정 */
+  .FAQ-buttons {
+    top: calc(420px + env(safe-area-inset-top, 0px)) !important;
+    gap: 10px !important;
+  }
+  
+  /* FAQ 카드 높이 조정 */
+  .FAQ-card {
+    height: 60px !important;
+  }
+  
+  /* FAQ 버튼 패딩 및 폰트 조정 */
+  .FAQ-button {
+    padding: 10px !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+  
+  /* 입력창을 하단 고정으로 변경 */
+  .footer-input {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 12px 16px calc(20px + env(safe-area-inset-bottom, 0px)) 16px !important;
+  }
+}
+
+/* 삼성 갤럭시 S8 및 비슷한 크기 대응 (360x740px) */
+@media screen and (max-width: 360px) and (min-height: 740px) {
+  
+  /* 헤더 위치 조정 */
+  .weather-header {
+    top: calc(56px + env(safe-area-inset-top, 0px)) !important;
+    height: 50px !important;
+  }
+  
+  /* 날짜 위치 조정 */
+  .date {
+    top: 105px !important;
+    font-size: 16px !important;
+  }
+  
+  /* 온도 위치 및 크기 조정 */
+  .temperature {
+    top: 140px !important;
+    font-size: 52px !important;
+    height: 60px !important;
+    line-height: 60px !important;
+  }
+  
+  /* 날씨 설명 위치 조정 */
+  .description {
+    top: 200px !important;
+    font-size: 14px !important;
+  }
+  
+  /* 체감온도 등 부가정보 위치 조정 */
+  .sub-summary {
+    top: 225px !important;
+    font-size: 12px !important;
+  }
+  
+  /* 마법 구슬 위치 및 크기 조정 */
+  .lumee-magic-orb {
+    width: 180px !important;
+    height: 180px !important;
+    top: 240px !important;
+  }
+  
+  /* 인사말 위치 조정 */
+  .greeting {
+    top: 415px !important;
+    font-size: 14px !important;
+  }
+  
+  /* 메인 질문 위치 조정 */
+  .main-question {
+    top: calc(435px + env(safe-area-inset-top, 0px)) !important;
+    font-size: 17px !important;
+    max-width: 320px !important;
+  }
+  
+  /* FAQ 버튼들 위치 조정 */
+  .FAQ-buttons {
+    top: calc(475px + env(safe-area-inset-top, 0px)) !important;
+    gap: 12px !important;
+    max-width: 320px !important;
+  }
+  
+  /* FAQ 카드 높이 조정 */
+  .FAQ-card {
+    height: 70px !important;
+  }
+  
+  /* FAQ 버튼 패딩 및 폰트 조정 */
+  .FAQ-button {
+    padding: 12px !important;
+    font-size: 13px !important;
+    line-height: 18px !important;
+  }
+  
+  /* 입력창 위치 조정 */
+  .footer-input {
+    top: 615px !important;
+    padding: 20px 16px 40px 16px !important;
+  }
+  
+  /* 입력창 높이 조정 */
+  .footer-input input {
+    height: 44px !important;
+    font-size: 13px !important;
+  }
+  
+  /* 전송 버튼 크기 조정 */
+  .send-button {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+  
+  .send-button img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  
+  /* 마이크 버튼 크기 조정 */
+  .mic-button {
+    width: 28px !important;
+    height: 28px !important;
+    right: 10px !important;
+  }
+  
+  .mic-button img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* 더 작은 화면 대응 (Galaxy S8보다 작은 경우) */
+@media screen and (max-width: 320px) {
+  
+  /* 헤더 위치명 폰트 크기 추가 조정 */
+  .header-location-name {
+    font-size: 18px !important;
+  }
+  
+  /* 온도 폰트 크기 추가 조정 */
+  .temperature {
+    font-size: 48px !important;
+  }
+  
+  /* 마법 구슬 크기 추가 조정 */
+  .lumee-magic-orb {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  
+  /* 메인 질문 폰트 크기 조정 */
+  .main-question {
+    font-size: 16px !important;
+    max-width: 280px !important;
+  }
+  
+  /* FAQ 버튼 최대 너비 조정 */
+  .FAQ-buttons {
+    max-width: 280px !important;
+  }
+}

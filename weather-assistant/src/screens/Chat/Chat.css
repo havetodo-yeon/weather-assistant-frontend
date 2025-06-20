@@ -2,26 +2,27 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh; /* 추가 */
-  overflow: hidden; /* 변경: auto -> hidden */
-  max-height: 100vh; /* 변경: 100% -> 100vh */
+  overflow-y: auto;
+  max-height: 100%;
 }
 
-
+/* 부모 헤더의 설정 */
 .weather-header {
   width: 100%;
   height: 56px;
   position: absolute;
-  top: 59px; /* 상태바 밑에 */
+  top: calc(59px + env(safe-area-inset-top, 0px)); /* 안전영역 추가 */
   
   background: transparent;
   
-  display: flex;    /* 자식들을 가로로 나란히 배치 */
-  justify-content: space-between;  /* 첫째는 왼쪽, 셋째는 오른쪽, 둘째는 가운데 */
-  align-items: center;   /* 모든 자식을 세로 중앙 정렬 */
-  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 min(20px, 5vw) !important; /* 반응형 패딩 */
   z-index: 10;
 }
+
+
 
 /* 왼쪽 뒤로가기 버튼 (기존 메뉴 버튼 스타일 재사용) */
 .header-back-btn {
@@ -82,7 +83,6 @@
   visibility: hidden; /* 공간은 차지하지만 보이지 않음 */
 }
 
-
 .messages {
   display: flex;
   flex-direction: column;
@@ -90,39 +90,48 @@
   flex: 1;
   overflow-y: auto;
   padding: 16px 20px;            
-  margin-top: 115px;
+  margin-top: 115px;          /* 위쪽 여백 */
   margin-bottom: 111px;
-  
-  /* 추가 */
-  height: calc(100vh - 226px); /* 전체 높이 - 헤더와 입력창 높이 */
-  min-height: 0; /* flexbox에서 중요 */
-  
-  /* 스크롤바 숨기기 */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+
 }
 
-
-/* 웹킷 브라우저 스크롤바 숨기기 */
-.messages::-webkit-scrollbar {
-  display: none;
-}
-
-/* 모바일 대응 추가 */
-@media screen and (max-width: 768px) {
+/* 일반 모바일 (iPhone 13, 14 등) */
+@media screen and (max-width: 768px) and (min-height: 750px) {
   .chat-screen {
-    height: 100dvh; /* 동적 뷰포트 높이 */
+    height: 100dvh;
+    overflow: hidden;
+    max-height: 100dvh;
   }
   
   .messages {
-    height: calc(100dvh - 226px);
-    padding: 12px 16px;
-    margin-bottom: 100px;
+    height: calc(100dvh - 226px); 
   }
 }
 
+/* 작은 모바일 (iPhone SE 등) */
+@media screen and (max-width: 768px) and (max-height: 749px) {
+  .chat-screen {
+    height: 100dvh;
+    overflow: hidden;
+    max-height: 100dvh;
+  }
   
+  .messages {
+    height: calc(100dvh - 180px); /*  더 적게 빼서 메시지 영역 확대 */
+    min-height: 0;
+    margin-bottom: 111px !important; /* 여백도 줄임 */
+  }
   
+  .footer-input {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    padding: 20px 16px 35px 16px !important; /* 패딩 축소 */
+    
+    /* Safe Area 대응 */
+    padding-bottom: calc(35px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
 /* ========== 메시지 래퍼 스타일 ========== */
 
 /* 메시지 전체 컨테이너 */
