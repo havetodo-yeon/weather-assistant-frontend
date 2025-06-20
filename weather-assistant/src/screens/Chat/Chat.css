@@ -22,8 +22,6 @@
   z-index: 10;
 }
 
-
-
 /* 왼쪽 뒤로가기 버튼 (기존 메뉴 버튼 스타일 재사용) */
 .header-back-btn {
   background: transparent !important;
@@ -69,8 +67,6 @@
   max-width: 270px;  /*  최대 너비 */
 }
 
-
-
 /* 아이콘 크기 */
 .back-icon {
   width: 24px;
@@ -92,7 +88,67 @@
   padding: 16px 20px;            
   margin-top: 115px;          /* 위쪽 여백 */
   margin-bottom: 111px;
+}
 
+/* ========== 커스텀 스크롤바 스타일 ========== */
+
+/* 메시지 영역 스크롤바 */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.messages::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* 채팅 전체 화면 스크롤바 */
+.chat-screen::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-screen::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.chat-screen::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.chat-screen::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.chat-screen::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Firefox용 스크롤바 스타일 */
+.messages {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.chat-screen {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
 /* 일반 모바일 (iPhone 13, 14 등) */
@@ -132,6 +188,7 @@
     padding-bottom: calc(35px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
+
 /* ========== 메시지 래퍼 스타일 ========== */
 
 /* 메시지 전체 컨테이너 */
@@ -234,7 +291,6 @@
   width: fit-content;
 }
 
-
 /* 생각하는 중 애니메이션 */
 
 /* 점 애니메이션 컨테이너 */
@@ -319,7 +375,6 @@
   /* 부드러운 전환 효과 */
   transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
 
 /* 텍스트 입력창 */
 .footer-input input {
@@ -556,9 +611,6 @@
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-
-
-
 /* 채팅 제목 표시 영역 */
 .chat-title-display {
   padding: 15px 20px;
@@ -579,4 +631,3 @@
   text-transform: capitalize;
   letter-spacing: 0.5px;
 }
-
