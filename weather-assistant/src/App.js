@@ -351,6 +351,7 @@ function App() {
               text: data.reply || '응답을 이해하지 못했어요.',
               // 백엔드가 그래프/미세먼지 데이터를 주면 그대로 할당
               graph: data.graph || null,
+              graphDate: data.graphDate || null, 
               dust: data.dust || null
             }
           ];
@@ -399,6 +400,7 @@ function App() {
     setView('listening');
   };
 
+  // 기존 useEffect들 아래에 이 코드를 추가하세요
 
 // 메시지가 업데이트될 때마다 스크롤을 맨 아래로
 useEffect(() => {
