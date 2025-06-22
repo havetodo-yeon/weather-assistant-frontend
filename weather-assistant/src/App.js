@@ -12,7 +12,9 @@ function App() {
   const [location, setLocation] = useState('Fetching location...');
   const [coords, setCoords] = useState(null);
   const [weather, setWeather] = useState(null);
-  const [uid, setUid] = useState('user01');
+  // const [uid, setUid] = useState('user01');
+  // 🔥 1. UID를 state로 관리하도록 변경
+  const [uid, setUid] = useState('testUser1'); // 기본값을 testUser1로 설정
   
   // 진행 중인 요청을 추적하기 위한 ref
   const abortControllerRef = useRef(null);
@@ -325,7 +327,7 @@ function App() {
       const res = await fetch('https://weather-assistant-backend1.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userInput: messageText, location, coords, uid: 'testUser1' }),
+        body: JSON.stringify({ userInput: messageText, location, coords, uid: uid }), //🔥 하드코딩된 값 대신 state 사용
         signal // AbortController 신호 추가
       });
 
@@ -438,6 +440,8 @@ useEffect(() => {
           sendFromFAQ={sendFromFAQ}
           handleVoiceInput={handleVoiceInput}
           weather={weather}
+          uid={uid}           // 🔥 추가
+          setUid={setUid}     // 🔥 추가
         />
       )}
       {view === 'chat' && (

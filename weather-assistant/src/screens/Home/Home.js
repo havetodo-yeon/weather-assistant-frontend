@@ -10,8 +10,33 @@ const Home = ({
   handleSend, 
   sendFromFAQ, 
   handleVoiceInput,
-  weather
+  weather,
+  uid,           // 🔥 추가: 현재 UID
+  setUid         // 🔥 추가: UID 변경 함수
 }) => {
+
+  // ===== 🔥 새로 추가: 사용자 프로필 관리 =====
+  const userProfiles = {
+    'testUser1': {
+      name: 'Minseo',
+      image: `${process.env.PUBLIC_URL}/assets/icons/minseo.png`,
+      greeting: 'Hello, Minseo👋'
+    },
+    'testUser2': {
+      name: 'Minjun',
+      image: `${process.env.PUBLIC_URL}/assets/icons/minjun.png`, // 🔥 민준 이미지 추가 
+      greeting: 'Hello, Minjun👋'
+    }
+  };
+
+  const currentUser = userProfiles[uid] || userProfiles['testUser1'];
+
+  // ===== 🔥 프로필 전환 함수 =====
+  const switchProfile = () => {
+    const newUid = uid === 'testUser1' ? 'testUser2' : 'testUser1';
+    setUid(newUid);
+    console.log(`🔄 프로필 전환: ${uid} → ${newUid}`);
+  };
 
   // ===== 1. 날짜 포맷팅 =====
   const today = new Date();
@@ -226,11 +251,11 @@ const Home = ({
           <span className="header-location-name">{location}</span>
         </button>
         
-        {/* 오른쪽 프로필 버튼 */}
-        <button className="header-profile" aria-label="프로필">
+        {/* 🔥 수정된 프로필 버튼 */}
+        <button className="header-profile" aria-label="프로필 전환" onClick={switchProfile}>
           <img 
-            src={`${process.env.PUBLIC_URL}/assets/icons/minseo.png`}
-            alt="기본 프로필"
+            src={currentUser.image}
+            alt={`${currentUser.name} 프로필`}
             className="profile-icon"
           />
         </button>
@@ -275,9 +300,9 @@ const Home = ({
         </video>
       </div>
  
-      {/* ===== 사용자 인사 섹션 ===== */}
+      {/* ===== 🔥 수정된 사용자 인사 섹션 ===== */}
       <div className="user-greeting-section">
-        <div className="greeting">Hello, Minseo👋</div>
+        <div className="greeting">{currentUser.greeting}</div>
         <h1 className="main-question">What weather info do you need?</h1>
       </div>
 
