@@ -593,22 +593,30 @@
   background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
 }
 
+
+
+
 .graph-card {
-  background-color: #f8fafc;
+  /* 봇 메시지 말풍선과 완전히 동일한 스타일 */
+  background: rgba(255, 255, 255, 0.08);
+  /* backdrop-filter: blur(8px); */
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
   border-radius: 12px;
-  padding: 5px;
-  /* padding-left: 5px;
-  padding-right: 5px; */
-  height: 140px !important;
-  min-height: 130px;
+  padding-top: 12px;    /* 위쪽 패딩 */
+  padding-bottom: 0px; /* 아래쪽 패딩 */
+  padding-left: 0px;   /* 왼쪽 패딩 */
+  padding-right: 0px;  /* 오른쪽 패딩 */
+  
+  height: auto !important; /* 카드 높이도 패딩에 맞춰 조정 */
+  
   margin-top: 12px;
   margin-bottom: 0px;
-  /* overflow: visible !important; 변경한 부분*/
   overflow: hidden;
   position: relative !important;
   display: block;
   z-index: 2;
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* 채팅 제목 표시 영역 */
