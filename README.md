@@ -1,42 +1,126 @@
-# Mobile Magicians
-- CAU Art&Technology
-- 2025-1 Mobile-Computing project team
-## Members
-- **ㄱㄴㅇ (팀장)**
-- ㄱㄷㅇ
-- ㅇㅎㅎ
-- ㅎㅅㅇ
+# 🔮 Lumee - 똑똑한 감성 날씨 어시스턴트
+> "사용자 취향과 건강 민감도를 반영해, 가장 필요한 날씨 정보를 선별해주는 AI 날씨 비서"
 
-# LLM 기반 날씨 React 웹앱
-## 프로젝트 규칙
-1. 모든 작업은 각각의 branch에서 이루어진다.
-2. 일련의 작업은 우선 `dev` branch 로 merge 한다.
-3. merge는 본인을 제외한 두 명 이상의 컨펌 이후 이루어진다.
-4. 프로토타입, 최종 작업물이 `dev` branch에서 만들어졌을 경우에만 `main`으로 merge 할 수 있다.
-### Front : weather-assistant-frontend
-https://github.com/havetodo-yeon/weather-assistant-frontend.git
-### Back : weather-assistant-backend
-https://github.com/havetodo-yeon/weather-assistant-backend.git
 
-## 프로젝트 여는 방법
-### Frontend 여는 방법
-1. [weather-assistant-frontend](https://github.com/havetodo-yeon/weather-assistant-frontend.git) 프로젝트를 원하는 위치에 clone 한다.
-2. 프로젝트 폴더를 vsc로 열어 git bash 터미널을 연 후 `weather-assistant` 폴더로 진입하여 `npm install`을 입력하여 Node-Module을 설치한다.
-3. `npm start` 를 터미널에 입력하면 React 웹앱이 실행된다.
 
-### Gemini LLM 기반 Backend 서버 여는 방법
-1. [weather-assistant-backend](https://github.com/havetodo-yeon/weather-assistant-backend.git) 프로젝트를 `weather-assistant-frontend` 프로젝트 폴더와 동등한 위치로 clone 한다.  
->▼ 파일 구조  
-&nbsp;&nbsp;&nbsp;**weather-assistant-backend/**    ← 백엔드 프로젝트  
-&nbsp;&nbsp;└── backend/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── server.js  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── package.json  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── node_modules/  
-&nbsp;&nbsp;&nbsp;**weather-assistant-frontend/**    ← 프론트엔드 프로젝트  
-&nbsp;&nbsp;└── weather-assistant/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── src/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── public/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── package.json  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── ...  
-2. 프로젝트 폴더를 vsc로 열어 git bash 터미널을 연 후 `backend` 폴더 위치에서 `npm init -y`와 `npm install express cors body-parser axios` 를 차례로 입력하여 Node-Module을 설치한다.
-3. `node server.js` 를 터미널에 입력하면 Gemini 기반 백엔드 서버가 실행된다.
+
+## 📌 프로젝트 개요
+
+- 개발 기간: 2025.05.29 - 2025.06.16
+- 개발 목적: **Lumee**는 사용자의 기상 민감 요소(예: 꽃가루, 자외선, 미세먼지)와 취미(예: 러닝, 산책 등)를 고려하여 질문 의도에 따라 맞춤형 날씨 정보를 자연스럽게 제공하는 챗봇 기반 날씨 어시스턴트입니다.
+
+
+
+## 🚀 주요 기능
+
+- 🔍 LLM 기반 자연어 질문 인식: `"마스크 써야 해?"`, `"서울 비와?"`, `"우산 챙길까?"`
+- 🌐 사용자 위치 기반 자동 날씨 제공
+- 🎯 사용자 민감 요소/취미 기반 맞춤형 조언
+- 📊 기온/미세먼지 그래프 시각화
+- 🧠 LLM에게 실시간 날씨 정보를 넘겨 최종 응답 생성
+
+---
+
+## 💻 링크
+
+- DEMO: [Lumee⛅🔮](https://hongsoonil.github.io/weather-assistant-frontend/)
+- PREVIEW: 시연 영상 링크
+- WORKSPACE: [Team Project: Lumee⛅🔮](https://www.notion.so/Team-Project-Lumee-202d2eacfdb280779c36f2f214d1584e?pvs=21)
+
+---
+
+
+## 👥 팀원
+
+| 이름 | 역할 |
+| --- | --- |
+| 기나연 (팀장) | 프론트엔드 UI 구현, 디자인 및 시각화 구성 전반, 모바일 대응 |
+| 김도연 | 위치 기반 API 연동, 미세먼지·기온 그래프 시각화,  LLM 아키텍처 재구성, git 관리 |
+| 이하형 | 자연어 입력에 대한 정보 추출 및 개인화 응답 생성, Firebase를 통한 사용자 정보 저장 및 불러오기 |
+| 홍순일 | 미세먼지/꽃가루 API 연동, 앱 빌드 및 배포 담당 |
+
+---
+
+## 🛠️ 사용 기술 스택
+
+| 분야 | 기술 |
+| --- | --- |
+| 프론트엔드 | React,Tailwind CSS, Recharts |
+| 백엔드 | Node.js |
+| AI 모델 | Gemini API (Google Generative AI) |
+| 데이터 API | OpenWeather, Ambee API, Google Geocoding |
+| DB | Firebase Realtime Database |
+| 배포 | GithubPage(FE), Render (BE) |
+
+---
+
+## 📂 프로젝트 구조
+
+### 1. 리포지토리
+
+[**Front** : weather-assistant-frontend](https://github.com/havetodo-yeon/weather-assistant-frontend.git)
+
+[**Back** : weather-assistant-backend](https://github.com/havetodo-yeon/weather-assistant-backend.git)
+
+### 2. 파일구조
+
+```markdown
+📦 Mobile-Magicians
+┣ 📂 weather-assistant-frontend
+┃  ┗ 📂 weather-assistant
+┃  ┣ 📜 App.js
+┃  ┣ 📜 WeatherLineChart.js
+┃  ┣ 📜 Chat.js
+┃  ┗ ...
+┣ 📂 weather-assistant-backend
+┃  ┗ 📂 backend
+┃  ┣ 🔒 .env
+┃  ┣ 📜 server.js
+┃  ┣ 📜 tools.js
+┃  ┣ 📜 geminiUtils.js
+┃  ┣ 📜 weatherUtils.js
+┃  ┣ 📜 userProfileUtils.js
+┃  ┗ ...
+┗ ...
+```
+
+---
+
+## ⚙️ 로컬 실행 방법
+
+### 1. 백엔드 실행
+
+```bash
+bash
+cd weather-assistant-backend/backend
+npm init -y
+npm install express cors body-parser axios
+npm install firebase
+node server.js
+```
+
+### 2. 프론트엔드 실행
+
+```bash
+cd weather-assistant-frontend/weather-assistant
+npm install
+npm install chart.js react-chartjs-2
+npm start
+```
+
+### 3. `.env` 파일 설정
+
+```makefile
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY              # Gemini API 키 (LLM 질문 응답)
+OPENCAGE_API_KEY=YOUR_OPENCAGE_API_KEY          # 위치 → 주소 변환용
+OPENWEATHER_API_KEY=YOUR_OPENWEATHER_API_KEY    # 날씨 데이터
+GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY    # 좌표 → 영문 주소
+AMBEE_POLLEN_API_KEY=YOUR_AMBEE_POLLEN_API_KEY  # 꽃가루 정보
+```
+
+---
+
+## 📢 향후 계획
+
+- 🌐 앱 내 다국어 지원
+- 📱 모바일 앱 출시 (React Native 또는 Flutter 전환 고려)
