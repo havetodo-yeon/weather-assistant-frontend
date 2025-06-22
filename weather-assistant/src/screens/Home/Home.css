@@ -1235,6 +1235,19 @@
     font-size: 12px !important;
     line-height: 16px !important;
   }
+
+  /* FAQ 편집 입력창 반응형 - FAQ 버튼과 동일 */
+  .FAQ-edit-input {
+    font-size: 12px !important; /* FAQ 버튼과 동일 */
+    line-height: 16px !important; /* FAQ 버튼과 동일 */
+    padding: 3px 6px !important;
+  }
+  
+  /* 저장/취소 버튼도 함께 조정 */
+  .FAQ-save-btn,
+  .FAQ-cancel-btn {
+    font-size: 9px !important;
+  }
   
   /* 입력창을 하단 고정으로 변경 */
   .footer-input {
@@ -1320,6 +1333,19 @@
     font-size: 13px !important;
     line-height: 18px !important;
   }
+
+  /* FAQ 편집 입력창 반응형 - FAQ 버튼과 동일 */
+  .FAQ-edit-input {
+    font-size: 13px !important; /* FAQ 버튼과 동일 */
+    line-height: 18px !important; /* FAQ 버튼과 동일 */
+    padding: 4px 7px !important;
+  }
+  
+  /* 저장/취소 버튼도 함께 조정 */
+  .FAQ-save-btn,
+  .FAQ-cancel-btn {
+    font-size: 9px !important;
+  }
   
   /* 입력창 위치 조정 */
   .footer-input {
@@ -1387,5 +1413,30 @@
   /* FAQ 버튼 최대 너비 조정 */
   .FAQ-buttons {
     max-width: 280px !important;
+  }
+
+  /* FAQ 편집 입력창 반응형 - 가장 작은 화면 */
+  .FAQ-edit-input {
+    font-size: 13px !important; /* Galaxy S8과 동일 */
+    line-height: 18px !important; /* Galaxy S8과 동일 */
+    padding: 3px 6px !important;
+  }
+  
+  /* 편집 모드 패딩도 조정 */
+  .FAQ-edit-mode {
+    padding: 6px !important;
+  }
+  
+  /* 버튼 컨테이너 마진 조정 */
+  .FAQ-edit-buttons {
+    gap: 3px !important;
+    margin-top: 3px !important;
+  }
+  
+  /* 저장/취소 버튼도 함께 조정 */
+  .FAQ-save-btn,
+  .FAQ-cancel-btn {
+    font-size: 8px !important;
+    height: 18px !important;
   }
 }
