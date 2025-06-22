@@ -148,17 +148,21 @@ const Chat = ({
                         m.text
                       )}
                       
-                      {/* 👇 미세먼지 시각화 그래프 삽입 */}
-                      {m.dust && typeof m.dust.value === 'number' && (
-                        <DustLevelChart value={m.dust.value} />
-                      )}
-                    </div>
-                  )}
-                  {Array.isArray(m.graph) && m.graph.length > 0 && (
-
-                    <div className="graph-card">
-                      <WeatherLineChart graph={m.graph} />
-                    </div>
+                     {/* 👇 기온 그래프를 먼저 렌더링 */}
+                    {Array.isArray(m.graph) && m.graph.length > 0 && (
+                      <div className="graph-card">
+                        <WeatherLineChart 
+                          graph={m.graph} 
+                          date={m.graphDate}
+                        />
+                      </div>
+                    )}
+                    
+                    {/* 👇 미세먼지 시각화 그래프를 나중에 렌더링 */}
+                    {m.dust && typeof m.dust.value === 'number' && (
+                      <DustLevelChart value={m.dust.value} date={m.dust.date} />
+                    )}
+                  </div>
                   )}
                 </div>
               </div>

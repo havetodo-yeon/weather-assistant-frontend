@@ -6,18 +6,19 @@
   max-height: 100%;
 }
 
+/* 부모 헤더의 설정 */
 .weather-header {
   width: 100%;
   height: 56px;
   position: absolute;
-  top: 59px; /* 상태바 밑에 */
+  top: calc(59px + env(safe-area-inset-top, 0px)); /* 안전영역 추가 */
   
   background: transparent;
   
-  display: flex;    /* 자식들을 가로로 나란히 배치 */
-  justify-content: space-between;  /* 첫째는 왼쪽, 셋째는 오른쪽, 둘째는 가운데 */
-  align-items: center;   /* 모든 자식을 세로 중앙 정렬 */
-  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 min(20px, 5vw) !important; /* 반응형 패딩 */
   z-index: 10;
 }
 
@@ -66,8 +67,6 @@
   max-width: 270px;  /*  최대 너비 */
 }
 
-
-
 /* 아이콘 크기 */
 .back-icon {
   width: 24px;
@@ -89,9 +88,106 @@
   padding: 16px 20px;            
   margin-top: 115px;          /* 위쪽 여백 */
   margin-bottom: 111px;
-
 }
 
+/* ========== 커스텀 스크롤바 스타일 ========== */
+
+/* 메시지 영역 스크롤바 */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.messages::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* 채팅 전체 화면 스크롤바 */
+.chat-screen::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-screen::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.chat-screen::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.chat-screen::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.chat-screen::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Firefox용 스크롤바 스타일 */
+.messages {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.chat-screen {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* 일반 모바일 (iPhone 13, 14 등) */
+@media screen and (max-width: 768px) and (min-height: 750px) {
+  .chat-screen {
+    height: 100dvh;
+    overflow: hidden;
+    max-height: 100dvh;
+  }
+  
+  .messages {
+    height: calc(100dvh - 226px); 
+  }
+}
+
+/* 작은 모바일 (iPhone SE 등) */
+@media screen and (max-width: 768px) and (max-height: 749px) {
+  .chat-screen {
+    height: 100dvh;
+    overflow: hidden;
+    max-height: 100dvh;
+  }
+  
+  .messages {
+    height: calc(100dvh - 180px); /*  더 적게 빼서 메시지 영역 확대 */
+    min-height: 0;
+    margin-bottom: 111px !important; /* 여백도 줄임 */
+  }
+  
+  .footer-input {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    padding: 20px 16px 35px 16px !important; /* 패딩 축소 */
+    
+    /* Safe Area 대응 */
+    padding-bottom: calc(35px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
 
 /* ========== 메시지 래퍼 스타일 ========== */
 
@@ -195,7 +291,6 @@
   width: fit-content;
 }
 
-
 /* 생각하는 중 애니메이션 */
 
 /* 점 애니메이션 컨테이너 */
@@ -280,7 +375,6 @@
   /* 부드러운 전환 효과 */
   transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
 
 /* 텍스트 입력창 */
 .footer-input input {
@@ -499,26 +593,31 @@
   background: linear-gradient(45deg, #97F5FD 15.63%, #EEB4F3 85.42%);
 }
 
+
+
+
 .graph-card {
-  background-color: #f8fafc;
+  /* 봇 메시지 말풍선과 완전히 동일한 스타일 */
+  background: rgba(255, 255, 255, 0.08);
+  /* backdrop-filter: blur(8px); */
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
   border-radius: 12px;
-  padding: 5px;
-  /* padding-left: 5px;
-  padding-right: 5px; */
-  height: 140px !important;
-  min-height: 130px;
+  padding-top: 12px;    /* 위쪽 패딩 */
+  padding-bottom: 0px; /* 아래쪽 패딩 */
+  padding-left: 0px;   /* 왼쪽 패딩 */
+  padding-right: 0px;  /* 오른쪽 패딩 */
+  
+  height: auto !important; /* 카드 높이도 패딩에 맞춰 조정 */
+  
   margin-top: 12px;
   margin-bottom: 0px;
-  /* overflow: visible !important; 변경한 부분*/
   overflow: hidden;
   position: relative !important;
   display: block;
   z-index: 2;
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
-
-
-
 
 /* 채팅 제목 표시 영역 */
 .chat-title-display {
@@ -540,4 +639,3 @@
   text-transform: capitalize;
   letter-spacing: 0.5px;
 }
-

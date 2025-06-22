@@ -22,19 +22,19 @@
   }
 }
 
-/* ========== 헤더 스타일 ========== */
+/* 부모 헤더의 설정 */
 .weather-header {
   width: 100%;
-  height: clamp(48px, 8vh, 56px);
+  height: 56px;
   position: absolute;
-  top: clamp(40px, 8vh, 59px);
+  top: calc(59px + env(safe-area-inset-top, 0px)); /* 안전영역 추가 */
   
   background: transparent;
   
-  display: flex;   
-  justify-content: space-between; 
-  align-items: center;  
-  padding: 0 clamp(16px, 4vw, 20px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 min(20px, 5vw); /* 반응형 패딩 */
   z-index: 10;
 }
 
