@@ -23,7 +23,7 @@
 ## 💻 링크
 
 - DEMO: [Lumee🔮](https://hongsoonil.github.io/weather-assistant-frontend/)
-- PREVIEW: [Demo Video: Lumee⛅🔮](https://youtu.be/SR7EXZbeJHA)
+- PREVIEW: [Demo Video: Lumee⛅🔮](https://youtu.be/PBAn7sUd3rI?feature=shared)
 - WORKSPACE: [Team Project: Lumee⛅🔮](https://www.notion.so/Team-Project-Lumee-202d2eacfdb280779c36f2f214d1584e?pvs=21)
 
 
@@ -32,8 +32,8 @@
 
 | 이름 | 역할 |
 | --- | --- |
-| 기나연 (팀장) | PM, 프론트엔드 UI 구현 및 전체 디자인, Firebase 기반 사용자 프로필 전환 기능, LLM 응답 다국어 자연어 질문 처리 및 개인화 보완 |
-| 김도연 | 위치 기반 API 연동 및 관련 기능 , 미세먼지·기온 그래프 시각화,  LLM 아키텍처 재구성, Git 관리 및 코드 리뷰 (Tech Lead) |
+| 기나연　<br/> (팀장) | PM, 프론트엔드 UI 구현 및 전체 디자인, Firebase 기반 사용자 프로필 전환 기능, LLM 응답 다국어 자연어 질문 처리 및 개인화 보완 |
+| 김도연 | Tech Lead, 위치 기반 API 연동 및 기능 구현, 사용자 문맥에 따른 미세먼지·기온 그래프 시각화, LLM 중심 구조 아키텍처 재설계, Git 관리 및 팀 코드 리뷰|
 | 이하형 | 자연어 입력에 대한 정보 추출 및 개인화 응답 생성, Firebase 연동 및 사용자 데이터 저장 및 불러오기 |
 | 홍순일 | 미세먼지/꽃가루 API 연동 및 관련 기능, 음성 인식 기능 구현, 앱 빌드 및 배포 담당 |
 
