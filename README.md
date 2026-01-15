@@ -1,3 +1,5 @@
+<img width="3750" height="3750" alt="Mockup_no_bg" src="https://github.com/user-attachments/assets/9ef5a5e8-c84d-4fef-8c3f-0720e1c4f34c" />
+
 # 🔮 Lumee - 똑똑한 감성 날씨 어시스턴트
 
 > "사용자 취향과 건강 민감도를 반영해, 가장 필요한 날씨 정보를 선별해주는 AI 날씨 비서"
